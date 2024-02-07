@@ -1,0 +1,81 @@
+* {
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+a {
+    text-decoration: none;
+}
+
+
+body{
+
+    background-color:#080808 ;
+}
+
+header{
+    padding: 20px 100px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: whitesmoke;
+    display: flex;
+    justify-content: space-between;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 32px;
+    color: #080808;
+    text-decoration: none;
+    font-weight: 700;
+    font-family: 'Share Tech Mono', monospace;
+}
+
+.navbar {
+    font-size: 20px;
+    font-weight: 500;
+    width: 70vh;
+    height: 38px;
+    text-decoration: none;
+    color: white;
+    margin-left: 50px;
+    margin-bottom: 5px;
+}
+
+.wrapper .button {
+    width: 20%;
+    height: 45px;
+    background-color: black;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: whitesmoke;
+    font-weight: 600;
+}
+
+.wrapper .button:hover{
+    background-color: grey;
+    color: whitesmoke;
+}
+
+.dropdown button{
+    width: 20%;
+    height: 45px;
+    background-color: black;
+    border: none;
+    outline: none;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+    cursor: pointer;
+    font-size: 16px;
+    color: whitesmoke;
+    font-weight: 600;
+}
