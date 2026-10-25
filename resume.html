@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chakravarthi Chintapatla, resume</title>
+<link rel="icon" href="assets/favicon.svg">
+<style>
+  @page { size: A4; margin: 14mm 15mm; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, "Helvetica Neue", Arial, sans-serif; color: #111; font-size: 9.6pt; line-height: 1.38; margin: 0; }
+  h1 { font-size: 20pt; margin: 0 0 2px; letter-spacing: -0.2px; }
+  .role { font-size: 10.5pt; color: #333; margin-bottom: 4px; }
+  .contact { font-size: 9pt; color: #333; }
+  .contact a { color: #1a4fd6; text-decoration: none; }
+  h2 { font-size: 9.5pt; text-transform: uppercase; letter-spacing: 1.2px; color: #1a4fd6; border-bottom: 1px solid #d5d9e0; padding-bottom: 2px; margin: 12px 0 6px; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; }
+  .title { font-weight: 700; font-size: 10.2pt; }
+  .meta { color: #555; font-size: 9pt; white-space: nowrap; }
+  .sub { color: #333; font-style: italic; margin: 1px 0 3px; }
+  ul { margin: 2px 0 6px 16px; padding: 0; }
+  li { margin: 1.5px 0; }
+  .skills div { margin: 2px 0; }
+  .skills b { display: inline-block; min-width: 92px; }
+  p { margin: 2px 0 4px; }
+  .back { font-size: 9pt; margin-bottom: 14px; display: flex; gap: 16px; }
+  .back a, .back button { color: #1a4fd6; font: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+  @media screen { body { max-width: 780px; margin: 0 auto; padding: 28px 20px 48px; font-size: 15px; } h1 { font-size: 30px; } .title { font-size: 16px; } .meta, .contact, .back { font-size: 14px; } h2 { font-size: 14px; } .role { font-size: 16px; } .sub { font-size: 14.5px; } }
+  @media screen and (max-width: 600px) { .row { flex-direction: column; } .meta { white-space: normal; } }
+  @media print { .back { display: none; } }
+</style>
+</head>
+<body>
+  <nav class="back"><a href="./">&lt;&lt; Back to my homepage</a><button type="button" onclick="window.print()">Print or save as PDF</button></nav>
+  <h1>Chakravarthi Chintapatla</h1>
+  <div class="role">Full-Stack &amp; Mobile Engineer · Co-founder &amp; CTO, Treato</div>
+  <div class="contact">
+    <a href="mailto:Chakravarthi8a2ss@gmail.com">Chakravarthi8a2ss@gmail.com</a> ·
+    <a href="https://www.linkedin.com/in/chintapatla-chakravarthi">linkedin.com/in/chintapatla-chakravarthi</a> ·
+    <a href="https://github.com/VanitasCaesar1">github.com/VanitasCaesar1</a> · Kakinada, India (open to relocate / remote)
+  </div>
+
+  <h2>Summary</h2>
+  <p>New graduate (BCA, 2025) who has built and runs a complete healthcare platform as its sole engineer: two React Native apps, a web app, a desktop app and the backend services behind them, about 3,700 commits since March 2025. Comfortable owning a product end to end, from data model to deployment, and working fast with AI coding agents while reviewing every change.</p>
+
+  <h2>Experience</h2>
+  <div class="row"><span class="title">Treato - Co-founder &amp; CTO</span><span class="meta">Oct 2024 - Present · Remote</span></div>
+  <div class="sub">India-first care platform connecting families, doctors and clinics around one shared health record</div>
+  <ul>
+    <li><b>Mobile:</b> built Treato Health (patients and families) and Treato for Doctors in React Native / Expo, with booking, family records, in-app chat and LiveKit video consultations.</li>
+    <li><b>Backend:</b> designed the core API in Go (Fiber) on PostgreSQL with about 360 schema migrations, REST plus a read-only GraphQL layer, and RabbitMQ for messaging between services.</li>
+    <li><b>Auth:</b> wrote the authentication service in Rust: phone OTP, passkeys and one identity across patient, doctor and clinic roles.</li>
+    <li><b>Real-time:</b> built chat in Elixir / Phoenix and self-hosted LiveKit for video.</li>
+    <li><b>Web and desktop:</b> Next.js website with a public doctor directory; Tauri desktop app for clinic front desks (tokens, walk-ins, billing).</li>
+    <li><b>Infrastructure:</b> run everything on a self-hosted VPS with Docker and Dokploy, plus Elasticsearch and Dragonfly; own deploys, backups and on-call.</li>
+  </ul>
+
+  <div class="row"><span class="title">[24]7.ai - Advisor</span><span class="meta">Apr 2025 - Sep 2025 · Bengaluru</span></div>
+  <ul>
+    <li>Handled customer queries and sales for enterprise clients in a high-volume support environment.</li>
+  </ul>
+
+  <h2>Open Source</h2>
+  <ul>
+    <li><b>expo-hot-toast</b> (TypeScript): react-hot-toast for Expo with Apple Liquid Glass on iOS 26+ and themable design tokens.</li>
+    <li><b>ZVault</b> (Rust): secrets manager that keeps API keys out of AI coding tools; AES-256-GCM, distributed via a Homebrew tap.</li>
+    <li><b>murkysql</b> (Rust): SQLite extension for vector search with HNSW and IVF indexes.</li>
+    <li><b>Seer</b> (Kotlin, Jetpack Compose): privacy-first Android keyboard with on-device suggestions and no internet permission.</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <div class="skills">
+    <div><b>Languages</b> TypeScript, JavaScript, Go, Rust, Elixir, Kotlin, SQL, C</div>
+    <div><b>Mobile &amp; web</b> React Native, Expo, React, Next.js, Tauri</div>
+    <div><b>Backend</b> PostgreSQL, REST, GraphQL, RabbitMQ, Elasticsearch, Phoenix Channels, WebRTC / LiveKit</div>
+    <div><b>Infra &amp; tools</b> Docker, Dokploy, Linux VPS, Git, GitHub, AI coding agents</div>
+  </div>
+
+  <h2>Education &amp; Certifications</h2>
+  <div class="row"><span class="title">Bachelor of Computer Applications - Aditya Degree College (Adikavi Nannaya University)</span><span class="meta">2022 - 2025</span></div>
+  <ul>
+    <li>Google Cybersecurity Professional Certificate (Coursera) · IBM RAG and Agentic AI (Coursera)</li>
+  </ul>
+  <p>Languages: English, Telugu, Hindi, Gujarati</p>
+</body>
+</html>
