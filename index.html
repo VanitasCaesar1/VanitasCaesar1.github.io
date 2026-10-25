@@ -106,6 +106,7 @@
           <li><b>Mobile.</b> Patient and doctor apps in React Native and Expo, with booking, family records, in-app chat and LiveKit video visits.</li>
           <li><b>Backend.</b> The core API in Go (Fiber) on PostgreSQL: about 360 schema migrations, REST plus a read-only GraphQL layer, RabbitMQ between services.</li>
           <li><b>Auth.</b> A Rust service for phone OTP and passkeys, with one identity across patient, doctor and clinic roles.</li>
+          <li><b>AI.</b> Maya, the assistant inside the patient app. It explains reports in plain words, keeps a health diary and drafts a brief before a visit. It never diagnoses.</li>
           <li><b>Real time.</b> Chat in Elixir and Phoenix, and self-hosted LiveKit for video.</li>
           <li><b>Web and desktop.</b> A Next.js website with a public doctor directory, and a Tauri app for clinic front desks (tokens, walk-ins, billing).</li>
           <li><b>Infra.</b> Docker on a self-hosted VPS with Dokploy, plus Elasticsearch and Dragonfly. I own the deploys and the backups.</li>
@@ -115,19 +116,23 @@
           <figcaption class="album-title">My photo album</figcaption>
           <div class="album-grid">
             <figure class="polaroid tilt-l">
-              <img src="assets/img/treato-home.webp" width="720" height="1565" loading="lazy" alt="Treato Health home screen: book a visit, add a record, medicines, family, and the next appointment">
-              <figcaption>The home screen</figcaption>
-            </figure>
-            <figure class="polaroid">
-              <img src="assets/img/treato-appointment.webp" width="720" height="1565" loading="lazy" alt="An appointment screen showing a scheduled video visit, the doctor, the patient and visit preparation">
-              <figcaption>A video visit</figcaption>
+              <img src="assets/img/treato-home.webp" width="600" height="955" loading="lazy" alt="Treato Health home screen: search doctors or ask Maya, find care by body part, book a visit, records, medicines and family">
+              <figcaption>Home</figcaption>
             </figure>
             <figure class="polaroid tilt-r">
-              <img src="assets/img/treato-family-setup.webp" width="720" height="1565" loading="lazy" alt="Adding a family member: child under 13, adult under my care, or adult who can accept an invite">
-              <figcaption>Adding family</figcaption>
+              <img src="assets/img/treato-records.webp" width="600" height="955" loading="lazy" alt="Records screen: a note that a blood count has two values outside range, records grouped by type, and a health diary">
+              <figcaption>Records</figcaption>
+            </figure>
+            <figure class="polaroid tilt-l">
+              <img src="assets/img/treato-report.webp" width="600" height="955" loading="lazy" alt="A blood count report with a plain-language summary written by Maya">
+              <figcaption>A report, explained</figcaption>
+            </figure>
+            <figure class="polaroid tilt-r">
+              <img src="assets/img/treato-maya-brief.webp" width="600" height="955" loading="lazy" alt="Maya preparing a brief for a doctor visit: why you're going, since when, and current medicines">
+              <figcaption>Maya's visit brief</figcaption>
             </figure>
           </div>
-          <p class="small center">Screens from the Treato Health app, with demo data.</p>
+          <p class="small center">Screens from the Treato Health app as of October 2026, with sample data.</p>
         </figure>
       </div>
     </section>

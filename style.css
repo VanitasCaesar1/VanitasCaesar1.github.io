@@ -300,10 +300,10 @@ a:focus-visible, .btn:focus-visible, button:focus-visible {
 }
 .album-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
   align-items: start;
-  max-width: 660px;
+  max-width: 780px;
   margin: 0 auto;
 }
 .polaroid {
@@ -315,7 +315,7 @@ a:focus-visible, .btn:focus-visible, button:focus-visible {
 .polaroid img { display: block; width: 100%; height: auto; border: 1px solid #ddd; }
 .polaroid figcaption { text-align: center; font: 16px/1.3 var(--comic); padding: 6px 0 2px; }
 .tilt-l { transform: rotate(-2deg); }
-.tilt-r { transform: rotate(2deg); }
+.tilt-r { transform: rotate(1.5deg) translateY(10px); }
 .album .small { color: #c9c9e8; }
 
 /* Open source */
@@ -440,7 +440,7 @@ a:focus-visible, .btn:focus-visible, button:focus-visible {
   .panel-body { padding: 16px; }
   .feature { grid-template-columns: 1fr; }
   .tv { max-width: 220px; margin: 0 auto; }
-  .album-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .album-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; max-width: 460px; }
   .polaroid { padding: 5px 5px 2px; }
   .polaroid figcaption { font-size: 13px; }
   .oss thead { display: none; }
