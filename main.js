@@ -40,3 +40,17 @@
     });
   });
 })();
+
+// The guestbook is an email: turn the form into a prefilled message.
+(() => {
+  const form = document.getElementById("gb-form");
+  if (!form) return;
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const name = form.elements.name.value.trim();
+    const message = form.elements.message.value.trim();
+    const subject = `Signed your guestbook: ${name}`;
+    const body = `${message}\n\n${name}`;
+    window.location.href = `mailto:chakravarthi8a2ss@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  });
+})();

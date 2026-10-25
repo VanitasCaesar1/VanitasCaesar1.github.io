@@ -37,7 +37,15 @@
 
 <div class="layout">
   <aside class="sidebar">
-    <section class="box">
+    <section class="box buddy">
+      <h2 class="titlebar">Buddy status</h2>
+      <div class="buddy-body">
+        <p class="online"><span class="led" aria-hidden="true"></span><b>Chakravarthi</b> is online</p>
+        <p class="away"><span>Away message:</span> Building Treato. Open to new roles, so leave me a message!</p>
+      </div>
+    </section>
+
+    <section class="box nav-box">
       <h2 class="titlebar">Navigate</h2>
       <nav class="nav-buttons" aria-label="Sections">
         <a class="btn" href="#about">About me</a>
@@ -86,12 +94,18 @@
             <a class="btn btn-big" href="https://www.linkedin.com/in/chintapatla-chakravarthi">LinkedIn</a>
           </div>
         </div>
+        <div class="about-side">
+        <figure class="me">
+          <img src="assets/img/me.webp" width="320" height="320" alt="My avatar">
+          <figcaption>This is me!</figcaption>
+        </figure>
         <dl class="facts">
           <dt>Location</dt><dd>Kakinada, India (IST)</dd>
           <dt>Languages</dt><dd>TypeScript, Go, Rust, Elixir, Kotlin, SQL</dd>
           <dt>Speaks</dt><dd>English, Telugu, Hindi, Gujarati</dd>
           <dt>Status</dt><dd>Looking for my next team</dd>
         </dl>
+        </div>
       </div>
     </section>
 
@@ -102,6 +116,12 @@
       <div class="panel-body">
         <h3 class="pixel-h"><a href="https://treatoapp.com">Treato</a></h3>
         <p>One shared health record for families, doctors and clinics in India. Families book doctors and keep their records together, doctors run their day from a phone, and clinics run the front desk from a desktop app. Here is what I built:</p>
+        <ul class="stats" aria-label="Treato in numbers">
+          <li class="st-1"><b>4</b><span>apps: patient, doctor, web, clinic desk</span></li>
+          <li class="st-2"><b>3,700+</b><span>commits since March 2025</span></li>
+          <li class="st-3"><b>~360</b><span>database migrations</span></li>
+          <li class="st-4"><b>1</b><span>engineer (hi, that's me)</span></li>
+        </ul>
         <ul class="stars">
           <li><b>Mobile.</b> Patient and doctor apps in React Native and Expo, with booking, family records, in-app chat and LiveKit video visits.</li>
           <li><b>Backend.</b> The core API in Go (Fiber) on PostgreSQL: about 360 schema migrations, REST plus a read-only GraphQL layer, RabbitMQ between services.</li>
@@ -112,22 +132,22 @@
           <li><b>Infra.</b> Docker on a self-hosted VPS with Dokploy, plus Elasticsearch and Dragonfly. I own the deploys and the backups.</li>
         </ul>
 
-        <figure class="album">
+        <figure class="album cork">
           <figcaption class="album-title">My photo album</figcaption>
           <div class="album-grid">
-            <figure class="polaroid tilt-l">
+            <figure class="polaroid tilt-l"><span class="pin" aria-hidden="true"></span>
               <img src="assets/img/treato-home.webp" width="600" height="955" loading="lazy" alt="Treato Health home screen: search doctors or ask Maya, find care by body part, book a visit, records, medicines and family">
               <figcaption>Home</figcaption>
             </figure>
-            <figure class="polaroid tilt-r">
+            <figure class="polaroid tilt-r"><span class="pin" aria-hidden="true"></span>
               <img src="assets/img/treato-records.webp" width="600" height="955" loading="lazy" alt="Records screen: a note that a blood count has two values outside range, records grouped by type, and a health diary">
               <figcaption>Records</figcaption>
             </figure>
-            <figure class="polaroid tilt-l">
+            <figure class="polaroid tilt-l"><span class="pin" aria-hidden="true"></span>
               <img src="assets/img/treato-report.webp" width="600" height="955" loading="lazy" alt="A blood count report with a plain-language summary written by Maya">
               <figcaption>A report, explained</figcaption>
             </figure>
-            <figure class="polaroid tilt-r">
+            <figure class="polaroid tilt-r"><span class="pin" aria-hidden="true"></span>
               <img src="assets/img/treato-maya-brief.webp" width="600" height="955" loading="lazy" alt="Maya preparing a brief for a doctor visit: why you're going, since when, and current medicines">
               <figcaption>Maya's visit brief</figcaption>
             </figure>
@@ -184,7 +204,20 @@
     <section id="guestbook" class="box panel guestbook">
       <h2 class="titlebar">Sign my guestbook!</h2>
       <div class="panel-body">
-        <p>My guestbook is an email inbox. Hiring, building something similar, or just saying hi? Write to me and I'll write back.</p>
+        <p>Hiring, building something similar, or just saying hi? Sign below. My guestbook is secretly an email inbox, so this opens your mail app with your message ready to send.</p>
+        <form class="gb-form" id="gb-form">
+          <div class="field">
+            <label for="gb-name">Your name</label>
+            <input id="gb-name" name="name" type="text" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="gb-msg">Your message</label>
+            <textarea id="gb-msg" name="message" rows="4" required></textarea>
+            <p class="hint">Tell me about the role, the project, or your favourite GeoCities page.</p>
+          </div>
+          <button class="btn btn-big" type="submit">Sign the guestbook</button>
+        </form>
+        <p class="or">Or write to me directly:</p>
         <p class="email-line">
           <a class="email" href="mailto:chakravarthi8a2ss@gmail.com">chakravarthi8a2ss@gmail.com</a>
           <button class="btn copy" type="button" data-copy="chakravarthi8a2ss@gmail.com">Copy</button>
