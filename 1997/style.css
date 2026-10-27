@@ -2,12 +2,12 @@
 
 @font-face {
   font-family: "Geist Pixel";
-  src: url("assets/fonts/geist-pixel-square.woff2") format("woff2");
+  src: url("../assets/fonts/geist-pixel-square.woff2") format("woff2");
   font-display: swap;
 }
 @font-face {
   font-family: "Geist Mono";
-  src: url("assets/fonts/geist-mono.woff2") format("woff2");
+  src: url("../assets/fonts/geist-mono.woff2") format("woff2");
   font-weight: 100 900;
   font-display: swap;
 }
@@ -626,3 +626,13 @@ a:focus-visible, .btn:focus-visible, button:focus-visible {
   .layout { grid-template-columns: 1fr; }
   .wordart { color: #000; text-shadow: none; transform: none; }
 }
+
+/* The way back from the time machine */
+.back-to-2026 {
+  position: fixed; right: 12px; bottom: 12px; z-index: 50;
+  padding: 6px 12px; background: #c0c0c0; color: #000; text-decoration: none;
+  font: bold 13px/1.2 "Geist Mono", monospace;
+  border: 2px solid; border-color: #fff #404040 #404040 #fff;
+}
+.back-to-2026:hover { background: #000080; color: #fff; }
+.back-to-2026:active { border-color: #404040 #fff #fff #404040; }

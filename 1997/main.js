@@ -51,6 +51,6 @@
     const message = form.elements.message.value.trim();
     const subject = `Signed your guestbook: ${name}`;
     const body = `${message}\n\n${name}`;
-    window.location.href = `mailto:chakravarthi8a2ss@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:cto@treatoapp.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 })();
