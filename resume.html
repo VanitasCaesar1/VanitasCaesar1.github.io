@@ -33,53 +33,53 @@
 <body>
   <nav class="back"><a href="./">&lt;&lt; Back to my homepage</a><button type="button" onclick="window.print()">Print or save as PDF</button></nav>
   <h1>Chakravarthi Chintapatla</h1>
-  <div class="role">Full-Stack &amp; Mobile Engineer · Co-founder &amp; CTO, Treato</div>
+  <div class="role">Full-stack engineer · TypeScript, Go, Rust, React Native · AI agents</div>
   <div class="contact">
     <a href="mailto:cto@treatoapp.com">cto@treatoapp.com</a> ·
     <a href="https://www.linkedin.com/in/chintapatla-chakravarthi">linkedin.com/in/chintapatla-chakravarthi</a> ·
-    <a href="https://github.com/VanitasCaesar1">github.com/VanitasCaesar1</a> · India
+    <a href="https://github.com/VanitasCaesar1">github.com/VanitasCaesar1</a> · India · open to Bengaluru, Mumbai, Delhi NCR or remote
   </div>
 
   <h2>Summary</h2>
-  <p>Co-founder and CTO of Treato. I lead engineering for a complete healthcare platform: two React Native apps, a web app, a desktop app and the backend services behind them, about 3,500 commits since March 2025. Comfortable owning a product end to end, from data model to deployment, and working fast with AI coding agents while reviewing every change.</p>
+  <p>Co-founder and CTO of Treato, an India-first healthcare platform. Took it from an empty repo to two mobile apps in the stores, a clinic desktop app, a Go backend and an in-app AI assistant: about 3,500 commits since March 2025. I own work from data model to deploy to on-call, and ship fast with AI coding agents while reviewing every change.</p>
 
   <h2>Experience</h2>
   <div class="row"><span class="title">Treato - Co-founder &amp; CTO</span><span class="meta">Oct 2024 - Present · Remote</span></div>
-  <div class="sub">India-first care platform connecting families, doctors and clinics around one shared health record</div>
+  <div class="sub">Care platform connecting families, doctors and clinics around one shared health record</div>
   <ul>
-    <li><b>Mobile:</b> built Treato Health (patients and families) and Treato for Doctors in React Native / Expo, with booking, family records, in-app chat and LiveKit video consultations.</li>
-    <li><b>Backend:</b> designed the core API in Go (Fiber) on PostgreSQL with about 360 schema migrations, REST plus a read-only GraphQL layer, and RabbitMQ for messaging between services.</li>
+    <li><b>Mobile:</b> shipped Treato Doc (doctors) and Treato Health (patients and families) in React Native / Expo: booking, family health records, chat (Elixir / Phoenix) and self-hosted LiveKit video visits. Treato Doc is live on the <a href="https://apps.apple.com/in/app/id6764219706">App Store</a> and <a href="https://play.google.com/store/apps/details?id=com.treato.app">Google Play</a>; Treato Health is on the App Store.</li>
+    <li><b>AI assistant:</b> built Maya, a tool-calling agent service in Go. Patients get prescriptions and lab reports explained and medicine reminders set; doctors get a morning brief and schedule changes as confirm cards. Red-flag checks run before the model; clinical output stays a draft until a doctor signs it.</li>
+    <li><b>Backend:</b> designed the core API in Go (Fiber) on PostgreSQL: about 360 schema migrations, REST plus a read-only GraphQL layer, RabbitMQ between services.</li>
     <li><b>Auth:</b> wrote the authentication service in Rust: phone OTP, passkeys and one identity across patient, doctor and clinic roles.</li>
-    <li><b>Real-time:</b> built chat in Elixir / Phoenix and self-hosted LiveKit for video.</li>
-    <li><b>Web and desktop:</b> Next.js website with a public doctor directory; Tauri desktop app for clinic front desks (tokens, walk-ins, billing).</li>
-    <li><b>Infrastructure:</b> run everything on a self-hosted VPS with Docker and Dokploy, plus Elasticsearch and Dragonfly; own deploys, backups and on-call.</li>
+    <li><b>Desktop and web:</b> Tauri desktop app for clinic front desks (tokens, walk-ins, billing) with signed macOS and Windows builds and auto-update; Next.js website with a public doctor directory.</li>
+    <li><b>Infrastructure:</b> run production on a self-hosted VPS with Docker and Dokploy, Elasticsearch and Dragonfly; own deploys, backups, monitoring and on-call.</li>
   </ul>
 
   <div class="row"><span class="title">[24]7.ai - Advisor</span><span class="meta">Apr 2025 - Sep 2025 · Bengaluru</span></div>
   <ul>
-    <li>Handled customer queries and sales for enterprise clients in a high-volume support environment.</li>
+    <li>Handled support and sales conversations for enterprise clients in a high-volume contact centre.</li>
   </ul>
 
   <h2>Open Source</h2>
   <ul>
-    <li><b>expo-hot-toast</b> (TypeScript): react-hot-toast for Expo with Apple Liquid Glass on iOS 26+ and themable design tokens.</li>
-    <li><b>ButterUI</b> (TypeScript): smooth screen transitions and native portals for React Native, packaged as agent skills for Claude Code, Cursor and Codex.</li>
-    <li><b>ZVault</b> (Rust): secrets manager that keeps API keys out of AI coding tools; AES-256-GCM, distributed via a Homebrew tap.</li>
+    <li><b>ZVault</b> (Rust): secrets manager that keeps API keys out of AI coding tools; AES-256-GCM, shipped through a Homebrew tap.</li>
+    <li><b>ButterUI</b> (TypeScript): React Native transitions and portals, packaged as agent skills for Claude Code, Cursor and Codex.</li>
+    <li><b>expo-hot-toast</b> (TypeScript): react-hot-toast for Expo with Apple Liquid Glass on iOS 26+.</li>
   </ul>
 
   <h2>Skills</h2>
   <div class="skills">
-    <div><b>Languages</b> TypeScript, JavaScript, Go, Rust, Elixir, Kotlin, SQL, C</div>
+    <div><b>Languages</b> TypeScript, Go, Rust, Elixir, SQL, JavaScript, Kotlin, C</div>
     <div><b>Mobile &amp; web</b> React Native, Expo, React, Next.js, Tauri</div>
-    <div><b>Backend</b> PostgreSQL, REST, GraphQL, RabbitMQ, Elasticsearch, Phoenix Channels, WebRTC / LiveKit</div>
-    <div><b>Infra &amp; tools</b> Docker, Dokploy, Linux VPS, Git, GitHub, AI coding agents</div>
+    <div><b>Backend</b> PostgreSQL, REST, GraphQL, RabbitMQ, Elasticsearch, Phoenix Channels, LiveKit</div>
+    <div><b>AI</b> tool-calling agents, LLM APIs, RAG, AI coding agents (Claude Code, Codex)</div>
+    <div><b>Infra</b> Docker, Dokploy, Linux, GitHub Actions</div>
   </div>
 
   <h2>Education &amp; Certifications</h2>
-  <div class="row"><span class="title">Bachelor of Computer Applications - Aditya Degree College (Adikavi Nannaya University)</span><span class="meta">2022 - 2025</span></div>
+  <div class="row"><span class="title">BCA - Aditya Degree College (Adikavi Nannaya University)</span><span class="meta">2022 - 2025</span></div>
   <ul>
-    <li>Google Cybersecurity Professional Certificate (Coursera) · IBM RAG and Agentic AI (Coursera)</li>
+    <li>Google Cybersecurity and IBM RAG &amp; Agentic AI certificates (Coursera) · Languages: English, Telugu, Hindi, Gujarati</li>
   </ul>
-  <p>Languages: English, Telugu, Hindi, Gujarati</p>
 </body>
 </html>
