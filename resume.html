@@ -33,19 +33,19 @@
   <nav class="back"><a href="./">&lt;&lt; Back to my homepage</a><a href="Chakravarthi_Chintapatla_Resume.pdf">Download PDF</a><a href="Chakravarthi_Chintapatla_Resume.docx">Download Word</a><button type="button" onclick="window.print()">Print</button></nav>
 
   <h1>Chakravarthi Chintapatla</h1>
-  <p class="role">Full-Stack Software Engineer | React Native, TypeScript, Go, Rust | AI Agents and LLM Apps</p>
+  <p class="role">AI Engineer | LLM Agents, React Native, TypeScript, Go, Rust</p>
   <p class="contact">Email: <a href="mailto:chakravarthi8a2ss@gmail.com">chakravarthi8a2ss@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/chintapatla-chakravarthi">linkedin.com/in/chintapatla-chakravarthi</a> | India<br>
   GitHub: <a href="https://github.com/VanitasCaesar1">github.com/VanitasCaesar1</a> | Site: <a href="https://vanitascaesar1.github.io">vanitascaesar1.github.io</a> | Open to Bengaluru, Pune, Mumbai, NCR, remote</p>
 
   <h2>Summary</h2>
-  <p>Full-stack software engineer and co-founder/CTO of Treato, a healthcare platform in India. Took it from an empty repository to production: two React Native apps live in the app stores, a Go and PostgreSQL backend, a Rust auth service, a Tauri desktop app and an LLM-powered AI agent, with about 3,500 commits since March 2025. Owns features end to end, from schema and API design to mobile UI, deployment and on-call.</p>
+  <p>AI engineer at Treato, a healthcare platform in India. Built Maya, an LLM tool-calling agent, and the product around it from an empty repository to production: two React Native apps live in the app stores, a Go and PostgreSQL backend, a Rust auth service and a Tauri desktop app, with about 3,500 commits since March 2025. Owns features end to end, from schema and API design to mobile UI, deployment and on-call.</p>
 
   <h2>Experience</h2>
-  <h3><span>Co-founder &amp; CTO (Full-Stack Software Engineer), Treato</span><span class="meta">Oct 2024 - Present | Remote, India</span></h3>
+  <h3><span>AI Engineer, Treato</span><span class="meta">Oct 2024 - Present | Remote, India</span></h3>
   <p class="sub">Healthcare platform connecting patients, families, doctors and clinics around one shared health record.</p>
   <ul>
+    <li><b>AI agent:</b> Built Maya, an LLM tool-calling agent in Go that explains prescriptions and lab reports, sets medicine reminders and gives doctors a daily brief. Guardrails: red-flag checks run before the model; patient names are swapped for labels before any text reaches the model; clinical output stays a draft until a doctor approves it (human in the loop); model-graded behaviour evals.</li>
     <li><b>Mobile apps:</b> Shipped Treato Doc (doctors) and Treato Health (patients) in React Native, Expo and TypeScript: booking, family health records, real-time chat (Elixir, Phoenix Channels, WebSockets) and video visits on self-hosted LiveKit (WebRTC). Treato Doc is live on the <a href="https://apps.apple.com/in/app/id6764219706">App Store</a> and <a href="https://play.google.com/store/apps/details?id=com.treato.app">Google Play</a>.</li>
-    <li><b>AI agent:</b> Built Maya, an LLM tool-calling agent in Go that explains prescriptions and lab reports, sets medicine reminders and gives doctors a daily brief. Guardrails: red-flag checks run before the model; clinical output stays a draft until a doctor approves it (human in the loop).</li>
     <li><b>Backend and APIs:</b> Designed the core REST API in Go (Fiber) on PostgreSQL (about 360 schema migrations), a GraphQL read layer, RabbitMQ between microservices, Elasticsearch search and Dragonfly (Redis) caching.</li>
     <li><b>Authentication and security:</b> Wrote the auth service in Rust: phone OTP, passkeys (WebAuthn) and one identity across patient, doctor and clinic roles (RBAC).</li>
     <li><b>Desktop and web:</b> Tauri desktop app for clinic front desks (queue, walk-ins, billing) with signed macOS/Windows builds and auto-update; Next.js website with a public doctor directory.</li>
