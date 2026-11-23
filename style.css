@@ -455,7 +455,8 @@ a:focus-visible, .btn:focus-visible, button:focus-visible {
   border: 2px solid #000;
   box-shadow: 4px 4px 0 var(--silver-dk);
 }
-.tv video { display: block; width: 100%; height: auto; border-radius: 6px; background: #eee; }
+.tv video,
+.tv img { display: block; width: 100%; height: auto; border-radius: 6px; background: #eee; }
 
 .new {
   display: inline-block;
