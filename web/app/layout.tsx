@@ -16,7 +16,6 @@ export const metadata: Metadata = {
   metadataBase: new URL(site),
   title: "Chakravarthi Chintapatla",
   description: "Chakravarthi Chintapatla, full-stack engineer. Built Treato end to end: mobile apps, Go backend, Rust auth and Maya, an LLM agent.",
-  icons: { icon: "/assets/favicon.svg" },
   openGraph: {
     title: "Chakravarthi Chintapatla",
     description: "Full-stack engineer. Apps, backends and the AI inside them. Built Treato from 0 to 1.",

@@ -5,4 +5,4 @@
 :HL["/_next/static/media/e63b65bb308a9351-s.p.3j3877k49yy0l.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/_next/static/media/geist_pixel_square-s.p.2hsizu-z_gncm.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 1:[["children",{"s":"__PAGE__","h":160}]]
-0:{"b":"gZy475qqbwEMRsnnViq-E","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
+0:{"b":"vRMzNFaW1PI6sXhaHAh-j","t":{"t":{"s":"","h":80,"c":"$Q1"}}}

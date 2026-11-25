@@ -205,6 +205,7 @@ export function DitherArt({ scene, className, label }: { scene: Scene; className
     let revealStart = 0;
     let reveal = reduce ? 1 : 0;
     let dpr = 1;
+    let lastStill = 0;
     const ptr = { x: 0, y: 0, tx: 0, ty: 0, k: 0, inside: false };
     const t0 = performance.now();
 
@@ -222,6 +223,7 @@ export function DitherArt({ scene, className, label }: { scene: Scene; className
       canvas.width = Math.max(1, Math.round(r.width * dpr));
       canvas.height = Math.max(1, Math.round(r.height * dpr));
       gl.viewport(0, 0, canvas.width, canvas.height);
+      lastStill = 0; // resizing clears the canvas: draw again even when nothing moves
       kick();
     };
     const ro = new ResizeObserver(resize);
@@ -229,7 +231,6 @@ export function DitherArt({ scene, className, label }: { scene: Scene; className
     resize();
 
     let prev = performance.now();
-    let lastStill = 0;
     const frame = (now: number) => {
       raf = 0;
       if (!ready || !visible) return;
