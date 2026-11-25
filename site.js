@@ -613,6 +613,98 @@
     }
   }
 
+  /* ---------- Pixels around the mouse ---------- */
+  // A dithered halo sits under the pointer and a short pixel trail follows it, anywhere on the page.
+  const fx = document.querySelector(".cursor-fx");
+  if (fx && fine && !reduce) {
+    const ctx2 = fx.getContext("2d");
+    const pts = [];           // trail: { x, y, life }
+    let mx = -999, my = -999, halo = 0, haloTarget = 0, idle = 0, running = false, last = 0, k = 1;
+    let box = null;           // last drawn area in device pixels
+    const size = () => {
+      k = dpr();
+      fx.width = Math.round(window.innerWidth * k);
+      fx.height = Math.round(window.innerHeight * k);
+      box = null;
+    };
+    size();
+    window.addEventListener("resize", size);
+
+    const HALO_R = 46, TRAIL_R = 16;
+    const field = (x, y) => {
+      let v = 0;
+      if (halo > 0.01) {
+        const dx = x - mx, dy = y - my, d2 = dx * dx + dy * dy;
+        if (d2 < 9 * HALO_R * HALO_R) v += 0.42 * halo * Math.exp(-d2 / (HALO_R * HALO_R));
+      }
+      for (let i = 0; i < pts.length; i++) {
+        const p = pts[i];
+        const r = TRAIL_R * (0.5 + 0.5 * p.life);
+        const dx = x - p.x, dy = y - p.y, d2 = dx * dx + dy * dy;
+        if (d2 < 9 * r * r) v += 0.5 * p.life * Math.exp(-d2 / (r * r));
+      }
+      return 0.66 * (1 - Math.exp(-1.8 * v)); // overlapping trail saturates at bright blue, never white
+    };
+
+    const frame = (now) => {
+      const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
+      last = now;
+      idle += dt;
+      haloTarget = idle < 1.4 ? 1 : 0;
+      halo += (haloTarget - halo) * (1 - Math.exp(-dt * (haloTarget ? 10 : 3)));
+      for (const p of pts) p.life -= dt * 2.4;
+      while (pts.length && pts[0].life <= 0) pts.shift();
+
+      // Area to repaint: everything alive now, plus what was drawn last frame.
+      let x0 = mx - 3 * HALO_R, y0 = my - 3 * HALO_R, x1 = mx + 3 * HALO_R, y1 = my + 3 * HALO_R;
+      for (const p of pts) { x0 = Math.min(x0, p.x - 3 * TRAIL_R); y0 = Math.min(y0, p.y - 3 * TRAIL_R); x1 = Math.max(x1, p.x + 3 * TRAIL_R); y1 = Math.max(y1, p.y + 3 * TRAIL_R); }
+      if (box) ctx2.clearRect(box.x, box.y, box.w, box.h);
+      const cellPx = Math.max(2, Math.round(CELL * k)), dotPx = Math.max(1, Math.round(DOT * k));
+      const ci0 = Math.max(0, Math.floor((x0 * k) / cellPx)), cj0 = Math.max(0, Math.floor((y0 * k) / cellPx));
+      const ci1 = Math.min(Math.ceil(fx.width / cellPx), Math.ceil((x1 * k) / cellPx)), cj1 = Math.min(Math.ceil(fx.height / cellPx), Math.ceil((y1 * k) / cellPx));
+      const W = (ci1 - ci0) * cellPx, H = (cj1 - cj0) * cellPx;
+      if (W > 0 && H > 0 && (halo > 0.01 || pts.length)) {
+        const img = ctx2.createImageData(W, H);
+        const buf = new Uint32Array(img.data.buffer);
+        for (let j = cj0; j < cj1; j++) {
+          for (let i = ci0; i < ci1; i++) {
+            const v = field(((i + 0.5) * cellPx) / k, ((j + 0.5) * cellPx) / k);
+            if (v <= 0.02) continue;
+            const q = clamp(v) * LEVELS;
+            let lvl = Math.floor(q);
+            if (q - lvl > BAYER[(j & 3) * 4 + (i & 3)]) lvl++;
+            if (lvl <= 0) continue;
+            const col = PAL[Math.min(lvl, LEVELS)];
+            const ox = (i - ci0) * cellPx, oy = (j - cj0) * cellPx;
+            for (let yy = oy; yy < oy + dotPx; yy++) for (let xx = ox; xx < ox + dotPx; xx++) buf[yy * W + xx] = col;
+          }
+        }
+        ctx2.putImageData(img, ci0 * cellPx, cj0 * cellPx);
+        box = { x: ci0 * cellPx, y: cj0 * cellPx, w: W, h: H };
+      } else {
+        box = null;
+      }
+      if (halo > 0.01 || pts.length) requestAnimationFrame(frame);
+      else { running = false; if (box) ctx2.clearRect(box.x, box.y, box.w, box.h); box = null; }
+    };
+    const wake = () => { if (!running) { running = true; last = performance.now(); requestAnimationFrame(frame); } };
+
+    window.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      const x = e.clientX, y = e.clientY;
+      // Lay trail points every few pixels so fast moves leave a continuous streak.
+      if (mx > -999) {
+        const dist = Math.hypot(x - mx, y - my);
+        const steps = Math.min(12, Math.floor(dist / 7));
+        for (let s2 = 1; s2 <= steps; s2++) pts.push({ x: mx + ((x - mx) * s2) / steps, y: my + ((y - my) * s2) / steps, life: 1 });
+        while (pts.length > 40) pts.shift();
+      }
+      mx = x; my = y; idle = 0;
+      wake();
+    }, { passive: true });
+    document.documentElement.addEventListener("pointerleave", () => { idle = 99; wake(); });
+  }
+
   /* ---------- Show more ---------- */
   document.querySelectorAll("[data-expand]").forEach((btn) => {
     btn.addEventListener("click", () => {
