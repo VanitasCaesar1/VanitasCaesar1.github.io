@@ -3,279 +3,450 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Chakravarthi's Homepage</title>
-<meta name="description" content="Chakravarthi Chintapatla, full-stack engineer. Built Treato. React Native, Go, Rust, Elixir and PostgreSQL.">
-<meta property="og:title" content="Chakravarthi's Homepage">
-<meta property="og:description" content="Full-stack engineer. Built Treato, connected care for Indian families, doctors and clinics, from 0 to 1.">
+<title>Chakravarthi Chintapatla</title>
+<meta name="description" content="Chakravarthi Chintapatla, full-stack engineer. Built Treato end to end: mobile apps, Go backend, Rust auth and Maya, an LLM agent.">
+<meta name="theme-color" content="#09090b">
+<meta property="og:title" content="Chakravarthi Chintapatla">
+<meta property="og:description" content="Full-stack engineer. Apps, backends and the AI inside them. Built Treato from 0 to 1.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://vanitascaesar1.github.io/">
 <meta property="og:image" content="https://vanitascaesar1.github.io/assets/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@phantommenace_x">
 <link rel="icon" href="assets/favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Instrument+Serif:ital@1&family=Caveat:wght@500&display=swap">
 <link rel="preload" href="assets/fonts/geist-pixel-square.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="site.css">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Chakravarthi Chintapatla","jobTitle":"Full-Stack Engineer (AI)","url":"https://vanitascaesar1.github.io/","sameAs":["https://github.com/VanitasCaesar1","https://www.linkedin.com/in/chintapatla-chakravarthi"]}
+{"@context":"https://schema.org","@type":"Person","name":"Chakravarthi Chintapatla","jobTitle":"Full-Stack Engineer (AI)","url":"https://vanitascaesar1.github.io/","sameAs":["https://github.com/VanitasCaesar1","https://www.linkedin.com/in/chintapatla-chakravarthi","https://x.com/phantommenace_x"]}
 </script>
 </head>
 <body>
-<a class="skip" href="#about">Skip to content</a>
+<a class="skip" href="#main">Skip to content</a>
 
-<header class="masthead" id="top">
-  <h1 class="wordart">Welcome to Chakravarthi's Homepage!</h1>
-  <p class="tagline">Full-stack engineer. Apps, backends and the AI inside them.</p>
-  <div class="marquee" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Thanks for stopping by! &#9733; I build apps, APIs and the servers under them &#9733; Built Treato, care for Indian families, doctors and clinics &#9733; Open to new roles &#9733; Don't forget to sign my guestbook &#9733;&nbsp;</span>
-      <span>Thanks for stopping by! &#9733; I build apps, APIs and the servers under them &#9733; Built Treato, care for Indian families, doctors and clinics &#9733; Open to new roles &#9733; Don't forget to sign my guestbook &#9733;&nbsp;</span>
-    </div>
-  </div>
-  <nav class="mobile-nav" aria-label="Sections">
-    <a href="#about">About</a><a href="#projects">Projects</a><a href="#open-source">Cool stuff</a><a href="resume.html">Resume</a><a href="#guestbook">Guestbook</a>
-  </nav>
-</header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 5 5 9-10"/></symbol>
+    <symbol id="i-chev" viewBox="0 0 24 24"><path d="m8 9 4-4 4 4M8 15l4 4 4-4"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9s-1.3 6.3-3.8 9c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3z"/></symbol>
+    <symbol id="i-in" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/></symbol>
+    <symbol id="i-braces" viewBox="0 0 24 24"><path d="M8 4H7a2 2 0 0 0-2 2v4l-2 2 2 2v4a2 2 0 0 0 2 2h1M16 4h1a2 2 0 0 1 2 2v4l2 2-2 2v4a2 2 0 0 1-2 2h-1"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/></symbol>
+    <symbol id="i-server" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="13" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 16.5h.01"/></symbol>
+    <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+    <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></symbol>
+  </defs>
+</svg>
 
-<div class="layout">
-  <aside class="sidebar">
-    <section class="box buddy">
-      <h2 class="titlebar">Buddy status</h2>
-      <div class="buddy-body">
-        <p class="online"><span class="led" aria-hidden="true"></span><b>Chakravarthi</b> is online</p>
-        <p class="away"><span>Away message:</span> Looking for my next role. Leave me a message!</p>
-      </div>
-    </section>
-
-    <section class="box nav-box">
-      <h2 class="titlebar">Navigate</h2>
-      <nav class="nav-buttons" aria-label="Sections">
-        <a class="btn" href="#about">About me</a>
-        <a class="btn" href="#projects">My projects</a>
-        <a class="btn" href="#open-source">Cool stuff I made</a>
-        <a class="btn" href="#resume">Where I've been</a>
-        <a class="btn" href="#guestbook">Guestbook</a>
-        <a class="btn" href="#links">Links</a>
+<div class="frame">
+  <!-- Left rail: on this page -->
+  <aside class="rail rail-left" aria-label="On this page">
+    <div class="rail-inner">
+      <p class="eyebrow">On this page</p>
+      <nav class="toc">
+        <a href="#about">About</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
       </nav>
-    </section>
-
-    <section class="box counter-box">
-      <h2 class="titlebar">Commit counter</h2>
-      <div class="odometer" data-target="3560" aria-label="3,560 commits">
-        <span>3</span><span>5</span><span>6</span><span>0</span><span class="plus">+</span>
-      </div>
-      <p class="small">commits to Treato, March 2025 to November 2026</p>
-    </section>
-
-    <section class="box">
-      <h2 class="titlebar">Powered by</h2>
-      <ul class="badges">
-        <li class="b88 b-go"><b>GO</b><i>powered</i></li>
-        <li class="b88 b-rust"><b>RUST</b><i>inside</i></li>
-        <li class="b88 b-ex"><b>ELIXIR</b><i>phoenix</i></li>
-        <li class="b88 b-expo"><b>EXPO</b><i>react native</i></li>
-        <li class="b88 b-pg"><b>POSTGRES</b><i>since day 1</i></li>
-        <li class="b88 b-any"><i>best viewed in</i><b>ANY BROWSER</b></li>
-      </ul>
-    </section>
+    </div>
+    <a class="to-top" href="#top" aria-label="Back to the top"><svg><use href="#i-up"/></svg></a>
   </aside>
 
-  <main class="content">
-    <section id="about" class="box panel">
-      <h2 class="titlebar">About me</h2>
-      <div class="panel-body about">
-        <div class="about-text">
-          <p class="hello">Hi! I'm <b>Chakravarthi Chintapatla</b>.</p>
-          <p>I build software end to end: mobile apps, web apps, backend services and the servers they run on.</p>
-          <p>From October 2024 to November 2026 I was a full-stack engineer at <a href="https://treato.cloud">Treato</a>, a care platform for India. I took its software from 0 to 1: the apps, the backend and Maya, its AI assistant.</p>
-          <p>I graduated with a BCA in 2025. Now I'm looking for my next role: full-stack, mobile or AI.</p>
-          <div class="cta-row">
-            <a class="btn btn-big" href="mailto:chakravarthi8a2ss@gmail.com">Email me</a>
-            <a class="btn btn-big" href="resume.html">Read my resume</a>
-            <a class="btn btn-big" href="https://github.com/VanitasCaesar1">GitHub</a>
-            <a class="btn btn-big" href="https://www.linkedin.com/in/chintapatla-chakravarthi">LinkedIn</a>
-          </div>
-        </div>
-        <div class="about-side">
-        <figure class="me">
-          <img src="assets/img/me.webp" width="320" height="320" alt="My avatar">
-          <figcaption>This is me!</figcaption>
-        </figure>
-        <dl class="facts">
-          <dt>Location</dt><dd>India (IST)</dd>
-          <dt>Languages</dt><dd>TypeScript, Go, Rust, Elixir, Kotlin, SQL</dd>
-          <dt>Speaks</dt><dd>English, Telugu, Hindi, Gujarati</dd>
-          <dt>Status</dt><dd>Open to new roles</dd>
-        </dl>
+  <main id="main" class="column">
+    <!-- Hero -->
+    <header class="hero" id="top">
+      <canvas class="dither" data-art="clouds" aria-hidden="true"></canvas>
+      <div class="hero-id">
+        <div class="avatar"><img src="assets/img/me.webp" width="320" height="320" alt="Chakravarthi's avatar"></div>
+        <div>
+          <h1><span class="first">Chakravarthi</span> <span class="last" data-scramble>Chintapatla</span></h1>
+          <p class="role">Full-stack &amp; AI engineer</p>
         </div>
       </div>
+      <a class="icon-btn hero-resume" href="resume.html" aria-label="Resume"><svg><use href="#i-file"/></svg></a>
+    </header>
+
+    <!-- Status for small screens (the right rail hides) -->
+    <div class="status-inline">
+      Open to new roles
+    </div>
+
+    <!-- About -->
+    <section id="about" class="section about">
+      <canvas class="dither about-art" data-art="eclipse" aria-hidden="true"></canvas>
+      <p class="lede">I build software end to end: <em>mobile apps</em>, <em>web apps</em>, the <em>backend</em> and the servers under it, and the <em>LLM agents</em> inside them. I work with <em>Claude Code</em> and <em>Codex</em> every day.</p>
+      <hr class="rule">
+      <ul class="facts">
+        <li><svg><use href="#i-right"/></svg><b>Treato</b><span>built it from 0 to 1, Oct 2024 – Nov 2026</span></li>
+        <li><svg><use href="#i-right"/></svg><b>3,560</b><span>commits since March 2025</span></li>
+        <li><svg><use href="#i-right"/></svg><b>React Native, Go, Rust, Postgres</b><span>stack</span></li>
+        <li><svg><use href="#i-right"/></svg><b>LLM agents</b><span>tool calling, guardrails, evals</span></li>
+        <li><svg><use href="#i-right"/></svg><b>BCA</b><span>Adikavi Nannaya University, 2025</span></li>
+        <li><svg><use href="#i-right"/></svg><b>English, Telugu, Hindi, Gujarati</b><span>speaks</span></li>
+        <li><svg><use href="#i-right"/></svg><b>India</b><span>IST</span></li>
+      </ul>
     </section>
 
-    <hr class="rainbow">
+    <!-- Links -->
+    <nav class="links" aria-label="Find me online">
+      <a href="https://github.com/VanitasCaesar1"><span class="ico"><img src="assets/icons/github.svg" alt=""></span>GitHub<svg class="go"><use href="#i-arrow"/></svg></a>
+      <a href="https://www.linkedin.com/in/chintapatla-chakravarthi"><span class="ico"><svg><use href="#i-in"/></svg></span>LinkedIn<svg class="go"><use href="#i-arrow"/></svg></a>
+      <a href="https://x.com/phantommenace_x"><span class="ico"><img src="assets/icons/x.svg" alt=""></span>X<svg class="go"><use href="#i-arrow"/></svg></a>
+      <a href="mailto:chakravarthi8a2ss@gmail.com"><span class="ico"><svg><use href="#i-mail"/></svg></span>Email<svg class="go"><use href="#i-arrow"/></svg></a>
+      <a href="resume.html"><span class="ico"><svg><use href="#i-file"/></svg></span>Resume<svg class="go"><use href="#i-arrow"/></svg></a>
+      <a href="https://treato.cloud"><span class="ico"><svg><use href="#i-globe"/></svg></span>treato.cloud<svg class="go"><use href="#i-arrow"/></svg></a>
+    </nav>
 
-    <section id="projects" class="box panel">
-      <h2 class="titlebar">My projects</h2>
-      <div class="panel-body">
-        <h3 class="pixel-h"><a href="https://treato.cloud">Treato</a></h3>
-        <p>One shared health record for families, doctors and clinics in India. Families book doctors and keep their records together, doctors run their day from a phone, and clinics run the front desk from a desktop app. Here is what I built:</p>
-        <ul class="stats" aria-label="Treato in numbers">
-          <li class="st-1"><b>4</b><span>apps: patient, doctor, web, clinic desk</span></li>
-          <li class="st-2"><b>3,560</b><span>commits since March 2025</span></li>
-          <li class="st-3"><b>~360</b><span>database migrations</span></li>
-          <li class="st-4"><b>India</b><span>built here, for here</span></li>
-        </ul>
-        <ul class="stars">
-          <li><b>Mobile.</b> Patient and doctor apps in React Native and Expo, with booking, family records, in-app chat and LiveKit video visits.</li>
-          <li><b>Backend.</b> The system design and the core API in Go (Fiber) on PostgreSQL: about 360 schema migrations, REST plus a read-only GraphQL layer, RabbitMQ between services.</li>
-          <li><b>Auth.</b> A Rust service for phone OTP and passkeys, with one identity across patient, doctor and clinic roles.</li>
-          <li><b>AI.</b> Maya, an LLM agent in Go with tool calling, inside the patient and doctor apps. It explains reports in plain words, keeps a health diary and drafts a brief before a visit. Safety checks run before the model, and it never diagnoses.</li>
-          <li><b>Real time.</b> Chat in Elixir and Phoenix, and self-hosted LiveKit for video.</li>
-          <li><b>Web and desktop.</b> A Next.js website with a public doctor directory, and a Tauri app for clinic front desks (tokens, walk-ins, billing).</li>
-          <li><b>Infra.</b> Docker on a self-hosted VPS with Dokploy, Cloudflare R2, Elasticsearch and Dragonfly, with PostHog analytics and Sentry crash reporting. I own the deploys and the backups.</li>
-        </ul>
-
-        <figure class="album cork">
-          <figcaption class="album-title">My photo album</figcaption>
-          <div class="album-grid">
-            <figure class="polaroid tilt-l"><span class="pin" aria-hidden="true"></span>
-              <img src="assets/img/treato-home.webp" width="600" height="955" loading="lazy" alt="Treato Health home screen: search doctors or ask Maya, find care by body part, book a visit, records, medicines and family">
-              <figcaption>Home</figcaption>
-            </figure>
-            <figure class="polaroid tilt-r"><span class="pin" aria-hidden="true"></span>
-              <img src="assets/img/treato-records.webp" width="600" height="955" loading="lazy" alt="Records screen: a note that a blood count has two values outside range, records grouped by type, and a health diary">
-              <figcaption>Records</figcaption>
-            </figure>
-            <figure class="polaroid tilt-l"><span class="pin" aria-hidden="true"></span>
-              <img src="assets/img/treato-report.webp" width="600" height="955" loading="lazy" alt="A blood count report with a plain-language summary written by Maya">
-              <figcaption>A report, explained</figcaption>
-            </figure>
-            <figure class="polaroid tilt-r"><span class="pin" aria-hidden="true"></span>
-              <img src="assets/img/treato-maya-brief.webp" width="600" height="955" loading="lazy" alt="Maya preparing a brief for a doctor visit: why you're going, since when, and current medicines">
-              <figcaption>Maya's visit brief</figcaption>
-            </figure>
-          </div>
-          <p class="small center">Screens from the Treato Health app as of October 2026, with sample data.</p>
-        </figure>
+    <!-- GitHub activity -->
+    <section class="activity" aria-label="GitHub activity">
+      <div class="graph-wrap"><canvas class="graph" aria-hidden="true"></canvas></div>
+      <div class="graph-foot">
+        <p><span class="contrib-total">10,150</span> contributions in the last year on <a href="https://github.com/VanitasCaesar1">GitHub</a>.</p>
+        <p class="legend" aria-hidden="true">Less <i class="l0"></i><i class="l1"></i><i class="l2"></i><i class="l3"></i><i class="l4"></i> More</p>
       </div>
     </section>
 
-    <section id="open-source" class="box panel">
-      <h2 class="titlebar">Cool stuff I made</h2>
-      <div class="panel-body">
-        <div class="feature">
-          <div class="tv">
-            <img src="assets/img/hoarding-top.webp" width="600" height="1302" loading="lazy" alt="hoarding.top on a phone: the #1 Global card with a gold crown, then the #1 India and #1 city cards, each with its price paid and a button to take the spot">
-          </div>
-          <div>
-            <h3 class="pixel-h"><a href="https://hoarding.top">hoarding.top</a> <span class="new">NEW!</span></h3>
-            <p>Paid leaderboards for the world, your country and your city, where the amount you pay is your rank. Anyone can put a card on the boards (a logo, a name and one link), and the #1 of each board gets the billboard spot. To take it, you pay $1 more than the card there now.</p>
-            <p>Under the boards is a free directory of apps, websites and open-source projects, sorted into categories and built from public data. I built it end to end: Next.js, Convex on my own server, Razorpay payments with a review step, invoices and emails.</p>
-            <p class="links-inline"><a href="https://hoarding.top">Visit hoarding.top</a> <a href="https://hoarding.top/how-it-works">How it works</a></p>
-          </div>
+    <!-- Experience -->
+    <section id="experience" class="section">
+      <span class="hand left" aria-hidden="true">where I've worked</span>
+      <h2>Experience</h2>
+      <hr class="rule">
+      <div class="rows">
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>Full-stack engineer (AI) <span class="at">at</span> <a href="https://treato.cloud">Treato</a></h3>
+              <p class="meta">Full time, India <i></i> Oct 2024 – Nov 2026 <i></i> <span class="mono">2y</span></p>
+              <p class="stack"><img src="assets/icons/expo.svg" alt="Expo" title="Expo"><img src="assets/icons/react.svg" alt="React Native" title="React Native"><img src="assets/icons/go.svg" alt="Go" title="Go"><img src="assets/icons/rust.svg" alt="Rust" title="Rust"><img src="assets/icons/elixir.svg" alt="Elixir" title="Elixir"><img src="assets/icons/postgresql.svg" alt="PostgreSQL" title="PostgreSQL"><img src="assets/icons/nextdotjs.svg" alt="Next.js" title="Next.js"><img src="assets/icons/tauri.svg" alt="Tauri" title="Tauri"></p>
+            </div>
+            <svg class="chev"><use href="#i-chev"/></svg>
+          </summary>
+          <ul class="bullets">
+            <li>Took a care platform for India from 0 to 1: patient and doctor apps, the website, a desktop app for clinic front desks, and the backend under all of them.</li>
+            <li>Designed the core API in Go on PostgreSQL (about 360 migrations), a Rust auth service for phone OTP and passkeys, and chat in Elixir and Phoenix.</li>
+            <li>Built Maya, an LLM agent with tool calling that explains reports in plain words and drafts a brief before a visit. Safety checks run before the model, and it never diagnoses.</li>
+            <li>Owned the deploys and backups: Docker on a self-hosted VPS with Dokploy, Cloudflare, PostHog and Sentry.</li>
+          </ul>
+        </details>
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>Advisor <span class="at">at</span> [24]7.ai</h3>
+              <p class="meta">Bengaluru <i></i> Apr 2025 – Sep 2025 <i></i> <span class="mono">6m</span></p>
+            </div>
+            <svg class="chev"><use href="#i-chev"/></svg>
+          </summary>
+          <ul class="bullets">
+            <li>Customer support and sales for enterprise clients.</li>
+          </ul>
+        </details>
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>BCA <span class="at">at</span> Aditya Degree College</h3>
+              <p class="meta">Adikavi Nannaya University <i></i> 2022 – 2025</p>
+            </div>
+            <svg class="chev"><use href="#i-chev"/></svg>
+          </summary>
+          <ul class="bullets">
+            <li>Bachelor of Computer Applications.</li>
+            <li>Plus the Google Cybersecurity and IBM RAG and Agentic AI certificates on Coursera.</li>
+          </ul>
+        </details>
+      </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills" class="section">
+      <span class="hand right" aria-hidden="true">what I build with</span>
+      <h2>Skills</h2>
+      <hr class="rule">
+      <div class="skills" data-collapsed>
+        <div class="skill-row">
+          <h3><svg><use href="#i-braces"/></svg>Languages <span class="count">8</span></h3>
+          <ul class="chips">
+            <li><img src="assets/icons/typescript.svg" alt="">TypeScript</li>
+            <li><img src="assets/icons/javascript.svg" alt="">JavaScript</li>
+            <li><img src="assets/icons/go.svg" alt="">Go</li>
+            <li><img src="assets/icons/rust.svg" alt="">Rust</li>
+            <li><img src="assets/icons/elixir.svg" alt="">Elixir</li>
+            <li><img src="assets/icons/postgresql.svg" alt="">SQL</li>
+            <li><img src="assets/icons/kotlin.svg" alt="">Kotlin</li>
+            <li><img src="assets/icons/c.svg" alt="">C</li>
+          </ul>
         </div>
-
-        <div class="feature">
-          <div class="tv">
-            <video src="assets/img/tabcn.mp4" poster="assets/img/tabcn-poster.webp" width="360" height="782" autoplay muted loop playsinline aria-label="tabcn demo: four of its tab bars switching tabs on an iPhone"></video>
-          </div>
-          <div>
-            <h3 class="pixel-h"><a href="https://github.com/VanitasCaesar1/tabcn">tabcn</a></h3>
-            <p>46 animated tab bars and panels for Expo and React Native, in the style of shadcn/ui. A small package on npm, <code>react-native-tabcn</code>, handles the navigator, safe areas, the sliding highlight, badges and accessibility. Each design is one file you copy into your app with the shadcn CLI and make your own.</p>
-            <p>Each design is matched to a real app's screenshots or a designer's clip, and checked in right-to-left layouts and at the largest text size. The site plays every one on a phone, and a QR code opens it in Expo Go.</p>
-            <p class="links-inline"><a href="https://github.com/VanitasCaesar1/tabcn">Source code</a> <a href="https://vanitascaesar1.github.io/tabcn/">See all 46</a></p>
-          </div>
+        <div class="skill-row">
+          <h3><svg><use href="#i-spark"/></svg>AI &amp; agents <span class="count">9</span></h3>
+          <ul class="chips">
+            <li><img src="assets/icons/claude.svg" alt="">Claude Code</li>
+            <li><img src="assets/icons/openai.svg" alt="">Codex</li>
+            <li><img src="assets/icons/anthropic.svg" alt="">LLM APIs</li>
+            <li><svg><use href="#i-box"/></svg>Tool calling</li>
+            <li><svg><use href="#i-box"/></svg>AI agents</li>
+            <li><svg><use href="#i-box"/></svg>RAG</li>
+            <li><svg><use href="#i-box"/></svg>Guardrails</li>
+            <li><svg><use href="#i-box"/></svg>Evals</li>
+            <li><svg><use href="#i-box"/></svg>Prompt engineering</li>
+          </ul>
         </div>
-
-        <div class="feature">
-          <div class="tv">
-            <video src="assets/img/expo-hot-toast.mp4" poster="assets/img/toast-poster.webp" width="360" height="784" autoplay muted loop playsinline aria-label="expo-hot-toast demo: toasts appearing in Liquid Glass on iOS"></video>
-          </div>
-          <div>
-            <h3 class="pixel-h"><a href="https://github.com/VanitasCaesar1/expo-hot-toast">expo-hot-toast</a></h3>
-            <p>The react-hot-toast API for Expo and React Native. On iOS 26 every toast is drawn in Apple's own Liquid Glass, on Android it uses Material 3 snackbars, and on the web it's frosted glass.</p>
-            <p>Every button on the demo site fires a real toast from the library, running in your browser.</p>
-            <p class="links-inline"><a href="https://github.com/VanitasCaesar1/expo-hot-toast">Source code</a> <a href="https://vanitascaesar1.github.io/expo-hot-toast/">Try the demo</a></p>
-          </div>
+        <div class="skill-row">
+          <h3><svg><use href="#i-phone"/></svg>Frontend &amp; mobile <span class="count">7</span></h3>
+          <ul class="chips">
+            <li><img src="assets/icons/react.svg" alt="">React Native</li>
+            <li><img src="assets/icons/expo.svg" alt="">Expo</li>
+            <li><img src="assets/icons/react.svg" alt="">React</li>
+            <li><img src="assets/icons/nextdotjs.svg" alt="">Next.js</li>
+            <li><img src="assets/icons/tauri.svg" alt="">Tauri</li>
+            <li><img src="assets/icons/apple.svg" alt="">iOS release</li>
+            <li><img src="assets/icons/android.svg" alt="">Android release</li>
+          </ul>
         </div>
-
-        <table class="oss">
-          <caption>More from my GitHub</caption>
-          <thead><tr><th scope="col">Project</th><th scope="col">Made with</th><th scope="col">What it does</th></tr></thead>
-          <tbody>
-            <tr><td><a href="https://github.com/VanitasCaesar1/hippo">hippo</a> <span class="new">NEW!</span></td><td>Rust</td><td>Memory for AI coding agents. Every night it reads the day's Claude Code, Codex and OpenCode sessions, turns repeated corrections into rules, and has a second model check each one against what happened. <a href="https://vanitascaesar1.github.io/hippo/">Site</a></td></tr>
-            <tr><td><a href="https://vestapowered.in">Vesta Arcade</a></td><td>TypeScript, Cloudflare Workers</td><td>An arcade where coding agents publish browser games and get players' crashes back as reports the agent can fix.</td></tr>
-            <tr><td><a href="https://github.com/VanitasCaesar1/ZVault">ZVault</a></td><td>Rust</td><td>A secrets manager that keeps API keys away from AI coding tools. AES-256-GCM, installed from a Homebrew tap.</td></tr>
-            <tr><td><a href="https://github.com/VanitasCaesar1/ButterUI">ButterUI</a></td><td>TypeScript</td><td>Smooth screen transitions and native portals for React Native, packaged as agent skills for Claude Code, Cursor and Codex.</td></tr>
-          </tbody>
-        </table>
+        <div class="skill-row">
+          <h3><svg><use href="#i-server"/></svg>Backend <span class="count">8</span></h3>
+          <ul class="chips">
+            <li><img src="assets/icons/nodedotjs.svg" alt="">Node.js</li>
+            <li><img src="assets/icons/go.svg" alt="">Fiber</li>
+            <li><img src="assets/icons/phoenixframework.svg" alt="">Phoenix</li>
+            <li><svg><use href="#i-box"/></svg>REST</li>
+            <li><img src="assets/icons/graphql.svg" alt="">GraphQL</li>
+            <li><svg><use href="#i-box"/></svg>WebSockets</li>
+            <li><img src="assets/icons/rabbitmq.svg" alt="">RabbitMQ</li>
+            <li><img src="assets/icons/webrtc.svg" alt="">LiveKit / WebRTC</li>
+          </ul>
+        </div>
+        <div class="skill-row">
+          <h3><svg><use href="#i-db"/></svg>Data <span class="count">4</span></h3>
+          <ul class="chips">
+            <li><img src="assets/icons/postgresql.svg" alt="">PostgreSQL</li>
+            <li><img src="assets/icons/elasticsearch.svg" alt="">Elasticsearch</li>
+            <li><img src="assets/icons/redis.svg" alt="">Redis / Dragonfly</li>
+            <li><svg><use href="#i-box"/></svg>Schema design &amp; migrations</li>
+          </ul>
+        </div>
+        <div class="skill-row">
+          <h3><svg><use href="#i-box"/></svg>Infra &amp; DevOps <span class="count">10</span></h3>
+          <ul class="chips">
+            <li><img src="assets/icons/docker.svg" alt="">Docker</li>
+            <li><img src="assets/icons/linux.svg" alt="">Linux</li>
+            <li><img src="assets/icons/githubactions.svg" alt="">GitHub Actions</li>
+            <li><svg><use href="#i-box"/></svg>Dokploy</li>
+            <li><img src="assets/icons/cloudflare.svg" alt="">Cloudflare Workers &amp; R2</li>
+            <li><img src="assets/icons/git.svg" alt="">Git</li>
+            <li><svg><use href="#i-box"/></svg>Playwright</li>
+            <li><img src="assets/icons/posthog.svg" alt="">PostHog</li>
+            <li><img src="assets/icons/sentry.svg" alt="">Sentry</li>
+            <li><img src="assets/icons/homebrew.svg" alt="">Homebrew taps</li>
+          </ul>
+        </div>
+        <div class="fade">
+          <canvas class="dither" data-art="tide" aria-hidden="true"></canvas>
+          <button class="pill" type="button" data-expand=".skills">Show 3 more <svg><use href="#i-down"/></svg></button>
+        </div>
       </div>
     </section>
 
-    <hr class="rainbow">
-
-    <section id="resume" class="box panel">
-      <h2 class="titlebar">Where I've been</h2>
-      <div class="panel-body">
-        <table class="history">
-          <tbody>
-            <tr><td class="when">Oct 2024 - Nov 2026</td><td><b>Treato</b>, full-stack engineer (AI)<br><span class="small">Built the mobile apps, website, desktop app, backend and Maya, an LLM agent.</span></td></tr>
-            <tr><td class="when">Apr 2025 - Sep 2025</td><td><b>[24]7.ai</b>, Bengaluru, advisor<br><span class="small">Customer support and sales for enterprise clients.</span></td></tr>
-            <tr><td class="when">2022 - 2025</td><td><b>BCA</b>, Aditya Degree College (Adikavi Nannaya University)<br><span class="small">Plus the Google Cybersecurity and IBM RAG and Agentic AI certificates on Coursera.</span></td></tr>
-          </tbody>
-        </table>
-        <p class="center"><a class="btn btn-big" href="resume.html">Read my resume</a></p>
-      </div>
-    </section>
-
-    <section id="guestbook" class="box panel guestbook">
-      <h2 class="titlebar">Sign my guestbook!</h2>
-      <div class="panel-body">
-        <p>Building something similar, curious about Treato, or just saying hi? Sign below. My guestbook is secretly an email inbox, so this opens your mail app with your message ready to send.</p>
-        <form class="gb-form" id="gb-form">
-          <div class="field">
-            <label for="gb-name">Your name</label>
-            <input id="gb-name" name="name" type="text" autocomplete="name" required>
+    <!-- Projects -->
+    <section id="projects" class="section">
+      <span class="hand left" aria-hidden="true">things I've shipped</span>
+      <h2>Projects</h2>
+      <hr class="rule">
+      <div class="rows projects" data-collapsed>
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>Treato</h3>
+              <p class="desc">One shared health record for families, doctors and clinics in India.</p>
+              <p class="stack"><img src="assets/icons/expo.svg" alt="Expo" title="Expo"><img src="assets/icons/go.svg" alt="Go" title="Go"><img src="assets/icons/rust.svg" alt="Rust" title="Rust"><img src="assets/icons/elixir.svg" alt="Elixir" title="Elixir"><img src="assets/icons/postgresql.svg" alt="PostgreSQL" title="PostgreSQL"><img src="assets/icons/nextdotjs.svg" alt="Next.js" title="Next.js"><img src="assets/icons/tauri.svg" alt="Tauri" title="Tauri"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://treato.cloud" aria-label="Open treato.cloud"><svg><use href="#i-arrow"/></svg></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul class="stats">
+              <li><b>4</b><span>apps: patient, doctor, web, clinic desk</span></li>
+              <li><b>~360</b><span>database migrations</span></li>
+              <li><b>1</b><span>identity across patient, doctor and clinic</span></li>
+            </ul>
+            <ul class="bullets">
+              <li><b>Mobile.</b> Patient and doctor apps in React Native and Expo: booking, family records, in-app chat and LiveKit video visits.</li>
+              <li><b>Backend.</b> The core API in Go (Fiber) on PostgreSQL: REST plus a read-only GraphQL layer, RabbitMQ between services.</li>
+              <li><b>Auth.</b> A Rust service for phone OTP and passkeys.</li>
+              <li><b>AI.</b> Maya, an LLM agent in Go with tool calling. It explains reports in plain words, keeps a health diary and drafts a brief before a visit.</li>
+              <li><b>Web and desktop.</b> A Next.js website with a public doctor directory, and a Tauri app for clinic front desks: tokens, walk-ins, billing.</li>
+            </ul>
+            <div class="shots">
+              <img src="assets/img/treato-home.webp" width="600" height="955" loading="lazy" alt="Treato Health home screen">
+              <img src="assets/img/treato-records.webp" loading="lazy" alt="Family records">
+              <img src="assets/img/treato-report.webp" loading="lazy" alt="A lab report, explained in plain words">
+              <img src="assets/img/treato-maya-brief.webp" loading="lazy" alt="Maya's brief before a visit">
+            </div>
+            <p class="caption">Screens from the Treato Health app as of October 2026, with sample data.</p>
           </div>
-          <div class="field">
-            <label for="gb-msg">Your message</label>
-            <textarea id="gb-msg" name="message" rows="4" required></textarea>
-            <p class="hint">Tell me about the role, the project, or your favourite GeoCities page.</p>
+        </details>
+
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>hoarding.top</h3>
+              <p class="desc">Paid leaderboards for the world, your country and your city, where what you pay is your rank.</p>
+              <p class="stack"><img src="assets/icons/nextdotjs.svg" alt="Next.js" title="Next.js"><img src="assets/icons/typescript.svg" alt="TypeScript" title="TypeScript"><img src="assets/icons/razorpay.svg" alt="Razorpay" title="Razorpay"><img src="assets/icons/docker.svg" alt="Docker" title="Docker"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://hoarding.top" aria-label="Open hoarding.top"><svg><use href="#i-arrow"/></svg></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul class="bullets">
+              <li>Anyone can put a card on the boards: a logo, a name and one link. The #1 of each board gets the billboard spot, and taking it costs $1 more than the card there now.</li>
+              <li>Under the boards is a free directory of apps, websites and open-source projects, built from public data.</li>
+              <li>Built end to end: Next.js, Convex on my own server, Razorpay payments with a review step, invoices and emails.</li>
+            </ul>
+            <div class="media"><img src="assets/img/hoarding-top.webp" loading="lazy" alt="The hoarding.top boards"></div>
           </div>
-          <button class="btn btn-big" type="submit">Sign the guestbook</button>
-        </form>
-        <p class="or">Or write to me directly:</p>
-        <p class="email-line">
-          <a class="email" href="mailto:chakravarthi8a2ss@gmail.com">chakravarthi8a2ss@gmail.com</a>
-          <button class="btn copy" type="button" data-copy="chakravarthi8a2ss@gmail.com">Copy</button>
-        </p>
-        <p class="small">I usually reply within a day, from India, in IST.</p>
+        </details>
+
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>tabcn</h3>
+              <p class="desc">46 animated tab bars and panels for Expo and React Native, in the style of shadcn/ui.</p>
+              <p class="stack"><img src="assets/icons/expo.svg" alt="Expo" title="Expo"><img src="assets/icons/react.svg" alt="React Native" title="React Native"><img src="assets/icons/typescript.svg" alt="TypeScript" title="TypeScript"><img src="assets/icons/npm.svg" alt="npm" title="npm"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://github.com/VanitasCaesar1/tabcn" aria-label="tabcn on GitHub"><img src="assets/icons/github.svg" alt=""></a><a class="icon-btn sm" href="https://vanitascaesar1.github.io/tabcn/" aria-label="See all 46 designs"><svg><use href="#i-arrow"/></svg></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul class="bullets">
+              <li>A small npm package, <code>react-native-tabcn</code>, handles the navigator, safe areas, the sliding highlight, badges and accessibility.</li>
+              <li>Each design is one file you copy in with the shadcn CLI, matched to a real app's screenshots and checked right to left and at the largest text size.</li>
+            </ul>
+            <div class="media"><video src="assets/img/tabcn.mp4" poster="assets/img/tabcn-poster.webp" muted loop playsinline preload="none" aria-label="tabcn tab bars in motion"></video></div>
+          </div>
+        </details>
+
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>expo-hot-toast</h3>
+              <p class="desc">The react-hot-toast API for Expo: Liquid Glass on iOS 26, Material 3 on Android, frosted glass on the web.</p>
+              <p class="stack"><img src="assets/icons/expo.svg" alt="Expo" title="Expo"><img src="assets/icons/apple.svg" alt="iOS" title="iOS"><img src="assets/icons/android.svg" alt="Android" title="Android"><img src="assets/icons/typescript.svg" alt="TypeScript" title="TypeScript"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://github.com/VanitasCaesar1/expo-hot-toast" aria-label="expo-hot-toast on GitHub"><img src="assets/icons/github.svg" alt=""></a><a class="icon-btn sm" href="https://vanitascaesar1.github.io/expo-hot-toast/" aria-label="Try the demo"><svg><use href="#i-arrow"/></svg></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul class="bullets">
+              <li>Every button on the demo site fires a real toast from the library, running in your browser.</li>
+            </ul>
+            <div class="media"><video src="assets/img/expo-hot-toast.mp4" poster="assets/img/toast-poster.webp" muted loop playsinline preload="none" aria-label="expo-hot-toast toasts in motion"></video></div>
+          </div>
+        </details>
+
+        <details class="row">
+          <summary>
+            <div class="row-main">
+              <h3>hippo</h3>
+              <p class="desc">Memory for AI coding agents. Every night it turns the day's repeated corrections into rules.</p>
+              <p class="stack"><img src="assets/icons/rust.svg" alt="Rust" title="Rust"><img src="assets/icons/claude.svg" alt="Claude Code" title="Claude Code"><img src="assets/icons/openai.svg" alt="Codex" title="Codex"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://github.com/VanitasCaesar1/hippo" aria-label="hippo on GitHub"><img src="assets/icons/github.svg" alt=""></a><a class="icon-btn sm" href="https://vanitascaesar1.github.io/hippo/" aria-label="hippo site"><svg><use href="#i-arrow"/></svg></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more">
+            <ul class="bullets">
+              <li>Reads the day's Claude Code, Codex and OpenCode sessions, turns repeated corrections into rules, and has a second model check each rule against what happened.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="row extra">
+          <summary>
+            <div class="row-main">
+              <h3>Vesta Arcade</h3>
+              <p class="desc">An arcade where coding agents publish browser games and get players' crashes back as reports they can fix.</p>
+              <p class="stack"><img src="assets/icons/typescript.svg" alt="TypeScript" title="TypeScript"><img src="assets/icons/cloudflareworkers.svg" alt="Cloudflare Workers" title="Cloudflare Workers"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://vestapowered.in" aria-label="Open Vesta Arcade"><svg><use href="#i-arrow"/></svg></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more"><ul class="bullets"><li>Runs on Cloudflare Workers with D1 and R2.</li></ul></div>
+        </details>
+
+        <details class="row extra">
+          <summary>
+            <div class="row-main">
+              <h3>ZVault</h3>
+              <p class="desc">A secrets manager that keeps API keys away from AI coding tools.</p>
+              <p class="stack"><img src="assets/icons/rust.svg" alt="Rust" title="Rust"><img src="assets/icons/homebrew.svg" alt="Homebrew" title="Homebrew"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://github.com/VanitasCaesar1/ZVault" aria-label="ZVault on GitHub"><img src="assets/icons/github.svg" alt=""></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more"><ul class="bullets"><li>AES-256-GCM, installed from a Homebrew tap.</li></ul></div>
+        </details>
+
+        <details class="row extra">
+          <summary>
+            <div class="row-main">
+              <h3>ButterUI</h3>
+              <p class="desc">Smooth screen transitions and native portals for React Native, packaged as agent skills.</p>
+              <p class="stack"><img src="assets/icons/react.svg" alt="React Native" title="React Native"><img src="assets/icons/typescript.svg" alt="TypeScript" title="TypeScript"></p>
+            </div>
+            <span class="row-acts"><a class="icon-btn sm" href="https://github.com/VanitasCaesar1/ButterUI" aria-label="ButterUI on GitHub"><img src="assets/icons/github.svg" alt=""></a><svg class="chev"><use href="#i-chev"/></svg></span>
+          </summary>
+          <div class="more"><ul class="bullets"><li>Works with Claude Code, Cursor and Codex.</li></ul></div>
+        </details>
+
+        <div class="more-wrap"><button class="pill" type="button" data-expand=".projects">See 3 more <svg><use href="#i-down"/></svg></button></div>
       </div>
     </section>
 
-    <section id="links" class="box panel">
-      <h2 class="titlebar">Cool links</h2>
-      <div class="panel-body webring">
-        <a href="https://github.com/VanitasCaesar1">&lt;&lt; GitHub</a>
-        <a href="https://www.linkedin.com/in/chintapatla-chakravarthi">LinkedIn</a>
-        <a href="https://x.com/phantommenace_x">X @phantommenace_x</a>
-        <a href="https://treato.cloud">treato.cloud</a>
-        <a href="https://hoarding.top">hoarding.top</a>
-        <a href="https://vanitascaesar1.github.io/tabcn/">tabcn</a>
-        <a href="https://vanitascaesar1.github.io/expo-hot-toast/">Toast demo &gt;&gt;</a>
-      </div>
+    <!-- Contact -->
+    <section id="contact" class="contact">
+      <canvas class="dither" data-art="horizon" aria-hidden="true"></canvas>
+      <span class="hand right" aria-hidden="true">say hi</span>
+      <h2>Building something? <a href="mailto:chakravarthi8a2ss@gmail.com">Let's talk.</a></h2>
+      <p class="sub">Open to full-stack, mobile and AI engineering roles.</p>
+      <a class="cta" href="mailto:chakravarthi8a2ss@gmail.com"><svg><use href="#i-mail"/></svg>Email me<span class="cta-go"><svg><use href="#i-arrow"/></svg></span></a>
+      <p class="where"><svg><use href="#i-pin"/></svg>India, IST <button class="copy" type="button" data-copy="chakravarthi8a2ss@gmail.com">chakravarthi8a2ss@gmail.com</button></p>
     </section>
+
+    <footer class="foot">
+      <blockquote>
+        <p>Simplicity is prerequisite for reliability.</p>
+        <cite>Edsger W. Dijkstra</cite>
+      </blockquote>
+      <hr class="rule short">
+      <p class="mono small">© 2026 Chakravarthi Chintapatla <span>·</span> <a href="llms.txt">llms.txt</a> <span>·</span> <a href="geocities.html">the 1997 version</a></p>
+      <canvas class="globe" aria-label="A dithered globe turning, centred on India" role="img"></canvas>
+    </footer>
   </main>
+
+  <!-- Right rail: status -->
+  <aside class="rail rail-right" aria-label="Status">
+    <div class="rail-inner">
+      <p class="status">Open to new roles</p>
+      <p class="loc">India<br><time class="mono ist">IST</time></p>
+      <hr class="rule">
+      <ul class="quick">
+        <li><button class="copy-link" type="button" data-copy="chakravarthi8a2ss@gmail.com">Email me<svg><use href="#i-copy"/></svg></button></li>
+        <li><a href="resume.html">Resume<svg><use href="#i-arrow"/></svg></a></li>
+        <li><a href="https://github.com/VanitasCaesar1">GitHub<svg><use href="#i-arrow"/></svg></a></li>
+        <li><a href="llms.txt">llms.txt<svg><use href="#i-arrow"/></svg></a></li>
+      </ul>
+    </div>
+  </aside>
 </div>
 
-<footer class="footer">
-  <section class="box construction">
-    <div class="hazard" aria-hidden="true"></div>
-    <p><b>UNDER CONSTRUCTION</b><br>This site will always be under construction. So will my apps.</p>
-    <div class="hazard" aria-hidden="true"></div>
-  </section>
-  <p>&copy; 2026 Chakravarthi Chintapatla. Plain HTML and CSS, no framework, built with AI coding agents. Last updated 25 October 2026.</p>
-  <p><a href="#top" class="to-top">Back to the top</a></p>
-</footer>
+<div class="toast" role="status" aria-live="polite"></div>
 
-<script src="main.js" defer></script>
+<script src="assets/land.js" defer></script>
+<script src="assets/contributions.js" defer></script>
+<script src="site.js" defer></script>
 </body>
 </html>

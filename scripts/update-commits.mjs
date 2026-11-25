@@ -1,4 +1,4 @@
-// Writes the commit count into the homepage and resume. Usage: node scripts/update-commits.mjs <count>
+// Writes the commit count into the homepage, the 1997 page and the resume. Usage: node scripts/update-commits.mjs <count>
 import { readFileSync, writeFileSync } from "node:fs";
 
 const n = Number(process.argv[2]);
@@ -17,9 +17,12 @@ function edit(file, rules) {
 }
 
 const digits = [...String(n)].map((d) => `<span>${d}</span>`).join("");
-edit("index.html", [
+edit("geocities.html", [
   [/<div class="odometer" data-target="\d+" aria-label="[\d,]+ (?:or more )?commits">\s*(?:<span>\d<\/span>)+/,
     `<div class="odometer" data-target="${n}" aria-label="${exact} commits">\n        ${digits}`],
+  [/<b>[\d,]+\+?<\/b><span>commits since March 2025<\/span>/, `<b>${exact}</b><span>commits since March 2025</span>`],
+]);
+edit("index.html", [
   [/<b>[\d,]+\+?<\/b><span>commits since March 2025<\/span>/, `<b>${exact}</b><span>commits since March 2025</span>`],
 ]);
 edit("resume.html", [[/about [\d,]+ commits since March 2025/, `about ${about} commits since March 2025`]]);
