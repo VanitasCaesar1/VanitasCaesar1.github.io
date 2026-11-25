@@ -81,16 +81,26 @@
   }
 
   /* ---------- Art fields ---------- */
+  // s.pt = { x, y, k }: the pointer in the canvas's own CSS pixels, k = 0..1 how present it is.
+  const bump = (s, x, y, r) => {
+    const P = s.pt;
+    if (!P || P.k < 0.01) return 0;
+    const dx = x - P.x, dy = y - P.y;
+    return P.k * Math.exp(-(dx * dx + dy * dy) / (r * r));
+  };
   const ARTS = {
     clouds(s) {
       return (x, y, t) => {
         const { w, h } = s;
-        const n = fbm(x * 0.0105 + t * 0.012, y * 0.017 - t * 0.004);
+        const b = bump(s, x, y, 120);
+        const P = s.pt;
+        const lx = b ? x + (x - P.x) * 0.5 * b : x, ly = b ? y + (y - P.y) * 0.5 * b : y;
+        const n = fbm(lx * 0.0105 + t * 0.012, ly * 0.017 - t * 0.004);
         const dx = (x - w / 2) / Math.max(w * 0.3, 170), dy = (y - h * 0.47) / (h * (w < 600 ? 0.5 : 0.36));
         const open = sstep(0.35, 1.5, dx * dx + dy * dy);
         const ragged = (noise(x * 0.05, 7.3) - 0.5) * 36;
         const bottom = 1 - sstep(h * 0.66, h * 0.98, y + ragged);
-        return (n - 0.4) * 2.6 * (0.25 + 0.75 * open) * bottom;
+        return ((n - 0.4) * 2.6 * (0.25 + 0.75 * open) + b * (n * 0.9 - 0.05)) * bottom;
       };
     },
     eclipse(s) {
@@ -104,7 +114,7 @@
         if (d < R + 1.6) return 0.97;
         const a = Math.atan2(dy, dx);
         const flame = 0.7 + 0.5 * fbm(Math.cos(a) * 2.2 + 9, Math.sin(a) * 2.2 + d * 0.012 - t * 0.12);
-        const glow = Math.exp(-(d - R) / (R * 0.55)) * flame;
+        const glow = Math.exp(-(d - R) / (R * 0.55)) * flame * (1 + 1.4 * bump(s, x, y, 140));
         return (glow - 0.1) * sstep(w * 0.05, w * 0.6, x);
       };
     },
@@ -112,7 +122,7 @@
       return (x, y, t) => {
         const { w, h } = s;
         const p = y / h + 0.07 * Math.sin(x * 0.018 + t * 0.7) + 0.12 * (fbm(x * 0.02, t * 0.25) - 0.5);
-        return sstep(0.38, 1.02, p) * 0.92 * (0.75 + 0.25 * Math.sin((x / w) * Math.PI));
+        return sstep(0.38, 1.02, p) * 0.92 * (0.75 + 0.25 * Math.sin((x / w) * Math.PI)) + 0.45 * bump(s, x, y, 90);
       };
     },
     horizon(s) {
@@ -120,7 +130,7 @@
         const { h } = s;
         const band = Math.exp(-Math.pow((y - h * 0.86) / (h * 0.1), 2));
         const n = fbm(x * 0.012 + t * 0.02, y * 0.04);
-        let v = band * (n - 0.3) * 1.5;
+        let v = band * (n - 0.3) * 1.5 + bump(s, x, y, 110) * (n - 0.15);
         const cx = Math.floor(x / CELL), cy = Math.floor(y / CELL);
         if (y < h * 0.7 && hash(cx, cy) > 0.9965) v = 0.28 + 0.15 * Math.sin(t * 2 + cx);
         return v;
@@ -144,9 +154,10 @@
     return (landBits[n >> 3] >> (n & 7)) & 1;
   };
   const RAD = Math.PI / 180;
+  // Rotation state: autorotates, can be dragged, keeps the throw's speed and slows down.
+  const G = { lon: 78, lat: 8, v: 0, dragging: false, sp: Math.sin(8 * RAD), cp: Math.cos(8 * RAD) };
   ARTS.globe = (s) => {
     loadLand();
-    const phi0 = 8 * RAD, sp = Math.sin(phi0), cp = Math.cos(phi0);
     const L = [-0.32, 0.42, 0.85];
     return (x, y, t) => {
       const { w, h } = s;
@@ -163,8 +174,9 @@
       }
       if (!landBits) return 0.2;
       const nz = Math.sqrt(1 - r2);
+      const sp = G.sp, cp = G.cp;
       const lat = Math.asin(Math.max(-1, Math.min(1, ny * cp + nz * sp))) / RAD;
-      const lam0 = 78 - t * 4;
+      const lam0 = G.lon;
       const lon = lam0 + Math.atan2(nx, nz * cp - ny * sp) / RAD;
       const lambert = Math.max(0, nx * L[0] + ny * L[1] + nz * L[2]);
       const limb = 0.55 + 0.45 * nz;
@@ -177,7 +189,8 @@
   document.querySelectorAll("canvas[data-art], canvas.globe").forEach((canvas) => {
     const s = makeSurface(canvas);
     const art = canvas.classList.contains("globe") ? "globe" : canvas.dataset.art;
-    const job = { s, art, field: null, visible: false, last: 0 };
+    const job = { s, art, field: null, visible: false, last: 0, tx: 0, ty: 0, inside: false };
+    s.pt = { x: 0, y: 0, k: 0 };
     s.resize();
     job.field = ARTS[art](s);
     jobs.push(job);
@@ -200,15 +213,93 @@
   }, { rootMargin: "100px" });
   jobs.forEach((j) => io.observe(j.s.canvas));
 
-  if (!reduce) {
-    const FRAME = 1000 / 15;
-    const loop = (now) => {
-      if (!document.hidden) {
-        for (const job of jobs) if (job.visible && now - job.last >= FRAME) drawJob(job, now);
+  let prev = performance.now();
+  const loop = (now) => {
+    const dt = Math.min(0.1, (now - prev) / 1000);
+    prev = now;
+    if (!reduce && !G.dragging) {
+      G.lon += (G.v - 4) * dt;
+      G.v *= Math.exp(-dt * 1.6);
+    }
+    G.sp = Math.sin(G.lat * RAD); G.cp = Math.cos(G.lat * RAD);
+    if (!document.hidden) {
+      for (const job of jobs) {
+        if (!job.visible) continue;
+        const P = job.s.pt;
+        const a = 1 - Math.exp(-dt * 14);
+        P.x += (job.tx - P.x) * a; P.y += (job.ty - P.y) * a;
+        P.k += ((job.inside ? 1 : 0) - P.k) * (1 - Math.exp(-dt * 6));
+        const busy = P.k > 0.01 || (job.art === "globe" && (G.dragging || Math.abs(G.v) > 0.5));
+        const frame = busy ? 1000 / 40 : 1000 / 15;
+        if (reduce && !busy && job.last) continue;
+        if (now - job.last >= frame) drawJob(job, now);
       }
-      requestAnimationFrame(loop);
-    };
+    }
     requestAnimationFrame(loop);
+  };
+  requestAnimationFrame(loop);
+
+  // The pointer lights up the pixel art under it (mouse only; not with reduce motion).
+  if (!reduce) {
+    window.addEventListener("pointermove", (e) => {
+      if (e.pointerType !== "mouse") return;
+      for (const job of jobs) {
+        if (!job.visible || job.art === "globe") continue;
+        const r = job.s.canvas.getBoundingClientRect();
+        const x = e.clientX - r.left, y = e.clientY - r.top;
+        const pad = 60;
+        job.inside = x > -pad && y > -pad && x < r.width + pad && y < r.height + pad;
+        if (job.inside) {
+          if (job.s.pt.k < 0.01) { job.s.pt.x = x; job.s.pt.y = y; }
+          job.tx = x; job.ty = y;
+        }
+      }
+    }, { passive: true });
+    document.addEventListener("pointerleave", () => jobs.forEach((j) => { j.inside = false; }));
+  }
+
+  // Drag the globe: it follows the pointer 1:1 and keeps the throw's speed.
+  const globe = document.querySelector("canvas.globe");
+  if (globe) {
+    let last = null, samples = [];
+    globe.addEventListener("pointerdown", (e) => {
+      if (e.button !== 0) return;
+      last = { x: e.clientX, y: e.clientY, moved: false, id: e.pointerId };
+      samples = [{ t: e.timeStamp, lon: G.lon }];
+      G.v = 0;
+    });
+    globe.addEventListener("pointermove", (e) => {
+      if (!last || e.pointerId !== last.id) return;
+      const dx = e.clientX - last.x, dy = e.clientY - last.y;
+      if (!last.moved) {
+        if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+        if (e.pointerType !== "mouse" && Math.abs(dy) > Math.abs(dx)) { last = null; return; } // let a phone scroll
+        last.moved = true;
+        G.dragging = true;
+        globe.classList.add("grabbing");
+        globe.setPointerCapture(e.pointerId);
+      }
+      const R = Math.min(globe.clientWidth * 0.4, globe.clientHeight * 0.8);
+      G.lon -= (dx / R) / RAD;
+      G.lat = Math.max(-25, Math.min(45, G.lat + (dy / R) / RAD));
+      last.x = e.clientX; last.y = e.clientY;
+      samples.push({ t: e.timeStamp, lon: G.lon });
+      if (samples.length > 6) samples.shift();
+    });
+    const end = (e) => {
+      if (!last || (e && e.pointerId !== last.id)) return;
+      if (last.moved && samples.length > 1) {
+        const a = samples[0], b = samples[samples.length - 1];
+        const span = (b.t - a.t) / 1000;
+        G.v = span > 0 && e.timeStamp - b.t < 80 ? Math.max(-400, Math.min(400, (b.lon - a.lon) / span + 4)) : 0;
+      }
+      G.dragging = false;
+      globe.classList.remove("grabbing");
+      last = null;
+    };
+    globe.addEventListener("pointerup", end);
+    globe.addEventListener("pointercancel", end);
+    globe.addEventListener("lostpointercapture", end);
   }
 
   let resizeTimer = 0;
@@ -223,6 +314,8 @@
 
   /* ---------- Contribution graph ---------- */
   const graph = document.querySelector(".graph");
+  const tip = document.querySelector(".graph-tip");
+  let hover = -1;
   function drawGraph() {
     const data = window.CONTRIB;
     if (!graph || !data) return;
@@ -283,42 +376,74 @@
     });
 
     const wrap = graph.parentElement;
-    if (wrap && wrap.scrollWidth > wrap.clientWidth) wrap.scrollLeft = wrap.scrollWidth;
+    if (wrap && !wrap.dataset.scrolled && wrap.scrollWidth > wrap.clientWidth) { wrap.scrollLeft = wrap.scrollWidth; wrap.dataset.scrolled = "1"; }
 
     const total = document.querySelector(".contrib-total");
     if (total) total.textContent = data.total.toLocaleString("en-US");
 
-    graph.onmousemove = (e) => {
+    // The hovered day: its week column lifts, the cell gets a bright frame.
+    if (hover >= 0 && hover < counts.length) {
+      const wk = Math.floor(hover / 7), day = hover % 7;
+      const x = Math.round(wk * pitch), y = Math.round(top + day * pitch);
+      ctx.fillStyle = "rgba(141, 156, 255, 0.10)";
+      ctx.fillRect(x - 2, top - 2, size + 4, 7 * pitch);
+      ctx.strokeStyle = "#ffffff"; ctx.lineWidth = 1.5;
+      ctx.strokeRect(x - 1.5, y - 1.5, size + 3, size + 3);
+    }
+    graph._layout = { pitch, top, size, start, counts };
+  }
+  if (graph && tip) {
+    graph.addEventListener("pointermove", (e) => {
+      const L = graph._layout;
+      if (!L) return;
       const b = graph.getBoundingClientRect();
-      const wk = Math.floor((e.clientX - b.left) / pitch);
-      const day = Math.floor((e.clientY - b.top - top) / pitch);
+      const wk = Math.floor((e.clientX - b.left) / L.pitch);
+      const day = Math.floor((e.clientY - b.top - L.top) / L.pitch);
       const n = wk * 7 + day;
-      if (day < 0 || day > 6 || n < 0 || n >= counts.length) { graph.title = ""; return; }
-      const d = new Date(start.getTime() + n * 86400000);
+      const next = day < 0 || day > 6 || n < 0 || n >= L.counts.length ? -1 : n;
+      if (next === hover) return;
+      hover = next;
+      drawGraph();
+      if (hover < 0) { tip.classList.remove("show"); return; }
+      const d = new Date(L.start.getTime() + hover * 86400000);
       const when = d.toLocaleDateString("en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "UTC" });
-      graph.title = `${counts[n]} contribution${counts[n] === 1 ? "" : "s"} on ${when}`;
-    };
+      const c = L.counts[hover];
+      tip.innerHTML = `<b>${c === 0 ? "No" : c.toLocaleString("en-US")} contribution${c === 1 ? "" : "s"}</b> on ${when}`;
+      const host = tip.parentElement.getBoundingClientRect();
+      const cx = b.left - host.left + wk * L.pitch + L.size / 2;
+      const cy = b.top - host.top + L.top + day * L.pitch;
+      const half = tip.offsetWidth / 2;
+      tip.style.translate = `${Math.max(8, Math.min(host.width - tip.offsetWidth - 8, cx - half))}px ${cy - tip.offsetHeight - 8}px`;
+      tip.classList.add("show");
+    });
+    graph.addEventListener("pointerleave", () => { hover = -1; drawGraph(); tip.classList.remove("show"); });
   }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawGraph);
   drawGraph();
 
-  /* ---------- Name scramble ---------- */
+  /* ---------- Name scramble: on load, and again when the pointer reaches it ---------- */
   const scramble = document.querySelector("[data-scramble]");
   if (scramble && !reduce) {
     const final = scramble.textContent;
     const pool = "abcdefghijklmnopqrstuvwxyz";
-    const start = performance.now();
-    const dur = 900;
-    const step = (now) => {
-      const p = Math.min(1, (now - start) / dur);
-      const fixed = Math.floor(p * final.length);
-      let out = final.slice(0, fixed);
-      for (let i = fixed; i < final.length; i++) out += pool[Math.floor(Math.random() * pool.length)];
-      scramble.textContent = out;
-      if (p < 1) requestAnimationFrame(step); else scramble.textContent = final;
+    let running = false;
+    const run = (dur) => {
+      if (running) return;
+      running = true;
+      const start = performance.now();
+      const step = (now) => {
+        const p = Math.min(1, (now - start) / dur);
+        const fixed = Math.floor(p * final.length);
+        let out = final.slice(0, fixed);
+        for (let i = fixed; i < final.length; i++) out += pool[Math.floor(Math.random() * pool.length)];
+        scramble.textContent = out;
+        if (p < 1) requestAnimationFrame(step); else { scramble.textContent = final; running = false; }
+      };
+      requestAnimationFrame(step);
     };
     scramble.setAttribute("aria-label", final);
-    requestAnimationFrame(step);
+    run(900);
+    scramble.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") run(450); });
   }
 
   /* ---------- IST clock ---------- */
@@ -366,26 +491,127 @@
     new IntersectionObserver(([e]) => toTop.classList.toggle("show", !e.isIntersecting)).observe(hero);
   }
 
-  /* ---------- Toast + copy ---------- */
+  /* ---------- Toast (assets/feel): from the bottom, 4 s, swipe down to dismiss ---------- */
+  document.addEventListener("touchstart", () => {}, { passive: true }); // :active presses on iPhone
   const toast = document.querySelector(".toast");
   let toastTimer = 0;
+  const closeToast = () => { clearTimeout(toastTimer); toast.setAttribute("data-feel-state", "closed"); };
   const say = (msg) => {
     if (!toast) return;
-    toast.textContent = msg;
-    toast.classList.add("show");
+    toast.innerHTML = `<svg aria-hidden="true"><use href="#i-check"/></svg>${msg}`;
+    toast.style.transform = "";
+    toast.removeAttribute("data-feel-dragged");
+    toast.setAttribute("data-feel-state", "closed");
+    void toast.offsetWidth; // restart the arrival when one replaces another
+    toast.setAttribute("data-feel-state", "open");
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove("show"), 2200);
+    toastTimer = setTimeout(closeToast, 4000);
   };
+  if (toast && window.Feel) {
+    window.Feel.drag(toast, { axis: "y", dismiss: 1, onDismiss: closeToast });
+    toast.addEventListener("pointerenter", () => clearTimeout(toastTimer));
+    toast.addEventListener("pointerleave", () => { if (toast.getAttribute("data-feel-state") === "open") toastTimer = setTimeout(closeToast, 4000); });
+  }
   document.querySelectorAll("[data-copy]").forEach((btn) => {
     btn.addEventListener("click", async () => {
       try {
         await navigator.clipboard.writeText(btn.dataset.copy);
         say("Email copied");
+        const ico = btn.querySelector(".copy-ico");
+        if (ico) {
+          ico.setAttribute("data-on", "");
+          clearTimeout(ico._t);
+          ico._t = setTimeout(() => ico.removeAttribute("data-on"), 1800);
+        }
       } catch {
         window.location.href = `mailto:${btn.dataset.copy}`;
       }
     });
   });
+
+  /* ---------- Pointer layer: spotlight, avatar tilt, magnetic button, project preview ---------- */
+  const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  if (fine) {
+    // Dotted spotlight: every .spot knows where the pointer is.
+    document.addEventListener("pointermove", (e) => {
+      const el = e.target.closest && e.target.closest(".spot");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+      el.style.setProperty("--my", `${e.clientY - r.top}px`);
+    }, { passive: true });
+  }
+
+  if (fine && !reduce) {
+    // Avatar tilts toward the pointer anywhere over the hero.
+    const avatar = document.querySelector(".avatar");
+    if (hero && avatar) {
+      hero.addEventListener("pointermove", (e) => {
+        const r = avatar.getBoundingClientRect();
+        const nx = (e.clientX - (r.left + r.width / 2)) / (hero.clientWidth / 2);
+        const ny = (e.clientY - (r.top + r.height / 2)) / (hero.clientHeight / 2);
+        avatar.classList.add("tilting");
+        avatar.style.setProperty("--ry", `${Math.max(-1, Math.min(1, nx)) * 14}deg`);
+        avatar.style.setProperty("--rx", `${Math.max(-1, Math.min(1, ny)) * -14}deg`);
+        avatar.style.setProperty("--gx", `${50 + nx * 50}%`);
+        avatar.style.setProperty("--gy", `${50 + ny * 50}%`);
+      });
+      hero.addEventListener("pointerleave", () => {
+        avatar.classList.remove("tilting");
+        avatar.style.setProperty("--rx", "0deg");
+        avatar.style.setProperty("--ry", "0deg");
+      });
+    }
+
+    // The email button leans toward a pointer that comes near it.
+    const cta = document.querySelector(".cta");
+    const contact = document.querySelector(".contact");
+    if (cta && contact) {
+      contact.addEventListener("pointermove", (e) => {
+        const r = cta.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+        const near = Math.abs(dx) < r.width / 2 + 70 && Math.abs(dy) < r.height / 2 + 50;
+        cta.classList.toggle("magnet", near);
+        cta.style.setProperty("--tx", near ? `${dx * 0.18}px` : "0px");
+        cta.style.setProperty("--ty", near ? `${dy * 0.3}px` : "0px");
+      });
+      contact.addEventListener("pointerleave", () => {
+        cta.classList.remove("magnet");
+        cta.style.setProperty("--tx", "0px");
+        cta.style.setProperty("--ty", "0px");
+      });
+    }
+
+    // A small preview of the project follows the pointer over its closed row.
+    const peek = document.querySelector(".peek");
+    const peekImg = peek && peek.querySelector("img");
+    if (peek && peekImg) {
+      let px = 0, py = 0, tx = 0, ty = 0, on = false, raf = 0;
+      const follow = () => {
+        px += (tx - px) * 0.2; py += (ty - py) * 0.2;
+        const x = Math.min(window.innerWidth - peek.offsetWidth - 12, px + 24);
+        const y = Math.max(12, Math.min(window.innerHeight - peek.offsetHeight - 12, py - peek.offsetHeight / 2));
+        peek.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        raf = on || Math.abs(tx - px) > 0.5 ? requestAnimationFrame(follow) : 0;
+      };
+      const hide = () => { on = false; peek.classList.remove("show"); };
+      document.querySelectorAll("summary[data-peek]").forEach((sum) => {
+        const row = sum.parentElement;
+        sum.addEventListener("pointerenter", (e) => {
+          if (row.open) return;
+          if (peekImg.getAttribute("src") !== sum.dataset.peek) peekImg.src = sum.dataset.peek;
+          if (!on) { px = tx = e.clientX; py = ty = e.clientY; }
+          on = true;
+          peek.classList.add("show");
+          if (!raf) raf = requestAnimationFrame(follow);
+        });
+        sum.addEventListener("pointermove", (e) => { tx = e.clientX; ty = e.clientY; });
+        sum.addEventListener("pointerleave", hide);
+        row.addEventListener("toggle", () => { if (row.open) hide(); });
+      });
+      window.addEventListener("scroll", hide, { passive: true });
+    }
+  }
 
   /* ---------- Show more ---------- */
   document.querySelectorAll("[data-expand]").forEach((btn) => {
