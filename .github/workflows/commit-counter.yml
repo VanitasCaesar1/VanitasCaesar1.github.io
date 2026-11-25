@@ -18,6 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+
       - id: count
         env:
           TREATO_STATS_TOKEN: ${{ secrets.TREATO_STATS_TOKEN }}
@@ -25,10 +31,20 @@ jobs:
 
       - run: node scripts/update-commits.mjs "${{ steps.count.outputs.commits }}"
 
-      - run: |
-          git diff --quiet && exit 0
+      # The homepage is a Next.js static export served from the repo root: rebuild it when the count changed.
+      - id: changed
+        run: git diff --quiet && echo "yes=false" >> "$GITHUB_OUTPUT" || echo "yes=true" >> "$GITHUB_OUTPUT"
+
+      - if: steps.changed.outputs.yes == 'true'
+        run: |
+          npm ci --prefix web --no-audit --no-fund
+          node scripts/build-site.mjs
+
+      - if: steps.changed.outputs.yes == 'true'
+        run: |
           git config user.name "commit-counter-bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -am "Commit counter: ${{ steps.count.outputs.commits }}"
+          git add -A
+          git commit -m "Commit counter: ${{ steps.count.outputs.commits }}"
           git pull --rebase
           git push

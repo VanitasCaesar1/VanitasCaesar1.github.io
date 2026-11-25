@@ -1,0 +1,29 @@
+# Chakravarthi Chintapatla
+
+> Full-stack engineer in India. Builds mobile apps, web apps, backends and the LLM agents inside them. Built Treato, a shared health record for Indian families, doctors and clinics, from 0 to 1.
+
+This site is a one-page portfolio. The resume is at https://vanitascaesar1.github.io/resume.html.
+
+## Experience
+
+- Treato, full-stack engineer (AI), Oct 2024 – Nov 2026: patient and doctor apps (React Native, Expo), the Go API on PostgreSQL, a Rust auth service, chat in Elixir and Phoenix, a Next.js website, a Tauri desktop app for clinics, and Maya, an LLM agent with tool calling.
+- [24]7.ai, advisor, Bengaluru, Apr 2025 – Sep 2025: customer support and sales for enterprise clients.
+- BCA, Aditya Degree College (Adikavi Nannaya University), 2022 – 2025.
+
+## Projects
+
+- [Treato](https://treato.cloud): one shared health record for families, doctors and clinics in India.
+- [hoarding.top](https://hoarding.top): paid leaderboards for the world, your country and your city, plus a free directory.
+- [tabcn](https://vanitascaesar1.github.io/tabcn/): 46 animated tab bars and panels for Expo and React Native.
+- [expo-hot-toast](https://github.com/VanitasCaesar1/expo-hot-toast): the react-hot-toast API for Expo with native glass and Material styles.
+- [hippo](https://github.com/VanitasCaesar1/hippo): memory for AI coding agents, written in Rust.
+- [Vesta Arcade](https://vestapowered.in): an arcade where coding agents publish browser games and get crash reports back.
+- [ZVault](https://github.com/VanitasCaesar1/ZVault): a secrets manager that keeps API keys away from AI coding tools.
+- [ButterUI](https://github.com/VanitasCaesar1/ButterUI): screen transitions and portals for React Native, as agent skills.
+
+## Elsewhere
+
+- [GitHub](https://github.com/VanitasCaesar1)
+- [LinkedIn](https://www.linkedin.com/in/chintapatla-chakravarthi)
+- [X](https://x.com/phantommenace_x)
+- [Email](mailto:chakravarthi8a2ss@gmail.com)

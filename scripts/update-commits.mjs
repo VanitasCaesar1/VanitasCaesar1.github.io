@@ -1,4 +1,5 @@
-// Writes the commit count into the homepage, the 1997 page and the resume. Usage: node scripts/update-commits.mjs <count>
+// Writes the commit count into the homepage source, the 1997 page and the resume (all under web/).
+// Run scripts/build-site.mjs afterwards to publish it. Usage: node scripts/update-commits.mjs <count>
 import { readFileSync, writeFileSync } from "node:fs";
 
 const n = Number(process.argv[2]);
@@ -17,13 +18,13 @@ function edit(file, rules) {
 }
 
 const digits = [...String(n)].map((d) => `<span>${d}</span>`).join("");
-edit("geocities.html", [
+edit("web/public/geocities.html", [
   [/<div class="odometer" data-target="\d+" aria-label="[\d,]+ (?:or more )?commits">\s*(?:<span>\d<\/span>)+/,
     `<div class="odometer" data-target="${n}" aria-label="${exact} commits">\n        ${digits}`],
   [/<b>[\d,]+\+?<\/b><span>commits since March 2025<\/span>/, `<b>${exact}</b><span>commits since March 2025</span>`],
 ]);
-edit("index.html", [
-  [/<b>[\d,]+\+?<\/b><span>commits since March 2025<\/span>/, `<b>${exact}</b><span>commits since March 2025</span>`],
+edit("web/lib/content.ts", [
+  [/strong: "[\d,]+\+?", soft: "commits since March 2025"/, `strong: "${exact}", soft: "commits since March 2025"`],
 ]);
-edit("resume.html", [[/about [\d,]+ commits since March 2025/, `about ${about} commits since March 2025`]]);
+edit("web/public/resume.html", [[/about [\d,]+ commits since March 2025/, `about ${about} commits since March 2025`]]);
 console.log(`commit counter: ${exact}`);

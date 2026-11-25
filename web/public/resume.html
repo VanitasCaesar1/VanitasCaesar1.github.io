@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chakravarthi Chintapatla - Full-Stack Software Engineer - Resume</title>
+<meta name="description" content="Chakravarthi Chintapatla, Full-Stack Software Engineer: React Native, TypeScript, Go, Rust, PostgreSQL, AI agents.">
+<link rel="icon" href="assets/favicon.svg">
+<style>
+  @page { size: A4; margin: 12mm 14mm; }
+  * { box-sizing: border-box; }
+  body { font-family: Arial, "Helvetica Neue", Helvetica, sans-serif; color: #111; font-size: 9.3pt; line-height: 1.32; margin: 0; }
+  h1 { font-size: 19pt; margin: 0 0 2px; }
+  .role { font-size: 10.5pt; font-weight: 700; color: #222; margin: 0 0 3px; }
+  .contact { font-size: 9pt; color: #222; margin: 0; }
+  .contact a { color: #1a4fd6; text-decoration: none; }
+  h2 { font-size: 10pt; text-transform: uppercase; letter-spacing: 1px; color: #1a4fd6; border-bottom: 1px solid #c9ced6; padding-bottom: 2px; margin: 8px 0 4px; }
+  h3 { font-size: 10pt; margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  h3 .meta { font-weight: 400; color: #444; font-size: 9pt; white-space: nowrap; }
+  .sub { color: #333; margin: 1px 0 2px; }
+  ul { margin: 2px 0 6px 16px; padding: 0; }
+  li { margin: 1.5px 0; }
+  p { margin: 2px 0 4px; }
+  .skills p { margin: 1.5px 0; }
+  .back { font-size: 9pt; margin-bottom: 14px; display: flex; gap: 16px; }
+  .back a, .back button { color: #1a4fd6; font: inherit; background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+  @media screen { body { max-width: 780px; margin: 0 auto; padding: 28px 20px 48px; font-size: 15px; } h1 { font-size: 30px; } h3 { font-size: 16px; } h3 .meta, .contact, .back { font-size: 14px; } h2 { font-size: 14px; } .role { font-size: 16px; } }
+  @media screen and (max-width: 600px) { h3 { flex-direction: column; } h3 .meta { white-space: normal; } }
+  @media print { .back { display: none; } }
+</style>
+</head>
+<body>
+  <nav class="back"><a href="./">&lt;&lt; Back to my homepage</a><a href="Chakravarthi_Chintapatla_Resume.pdf">Download PDF</a><a href="Chakravarthi_Chintapatla_Resume.docx">Download Word</a><button type="button" onclick="window.print()">Print</button></nav>
+
+  <h1>Chakravarthi Chintapatla</h1>
+  <p class="role">Full-Stack Engineer | React Native (Expo), TypeScript, Go | LLM Agents</p>
+  <p class="contact">Phone: <a href="tel:+919063679809">+91 90636 79809</a> | Email: <a href="mailto:chakravarthi8a2ss@gmail.com">chakravarthi8a2ss@gmail.com</a> | LinkedIn: <a href="https://www.linkedin.com/in/chintapatla-chakravarthi">linkedin.com/in/chintapatla-chakravarthi</a><br>
+  GitHub: <a href="https://github.com/VanitasCaesar1">github.com/VanitasCaesar1</a> | Site: <a href="https://vanitascaesar1.github.io">vanitascaesar1.github.io</a> | Open to relocate anywhere in India, or remote</p>
+
+  <h2>Summary</h2>
+  <p>Full-stack engineer who took Treato, a healthcare platform in India, 0 to 1, from an empty repository to production: two React Native apps live in the app stores, a Go and PostgreSQL backend, a Rust auth service, a Tauri desktop app and Maya, an LLM tool-calling agent, with about 3,500 commits since March 2025. Owned features end to end, from system design to mobile UI, deployment and on-call.</p>
+
+  <h2>Experience</h2>
+  <h3><span>Full-Stack Engineer (AI), Treato</span><span class="meta">Oct 2024 - Nov 2026 | Remote, India</span></h3>
+  <p class="sub">Healthcare platform connecting patients, families, doctors and clinics around one shared health record.</p>
+  <ul>
+    <li><b>AI agent:</b> Built Maya, an LLM tool-calling agent in Go that explains prescriptions and lab reports, sets medicine reminders and gives doctors a daily brief. Guardrails: red-flag checks before the model; patient names are swapped for labels before the model sees them; clinical output stays a draft until a doctor approves it.</li>
+    <li><b>Mobile apps:</b> Shipped Treato Doc (doctors) and Treato Health (patients) in React Native, Expo and TypeScript: booking, family health records, real-time chat (Elixir, Phoenix Channels, WebSockets) and video visits on self-hosted LiveKit (WebRTC). Treato Doc (version 2.0.9) is live on the <a href="https://apps.apple.com/in/app/id6764219706">App Store</a> and <a href="https://play.google.com/store/apps/details?id=com.treato.app">Google Play</a>.</li>
+    <li><b>Backend and APIs:</b> Designed the architecture and core REST API in Go (Fiber) on PostgreSQL (~360 migrations), GraphQL reads, RabbitMQ between microservices, Elasticsearch and a Dragonfly (Redis) cache.</li>
+    <li><b>Authentication and security:</b> Built Treato ID, an identity provider in Rust (Axum): phone OTP, passkeys (WebAuthn), MFA (TOTP), OAuth 2.0 / OpenID Connect and SSO (SAML), one identity for patients, doctors and clinics (RBAC).</li>
+    <li><b>Desktop and web:</b> Tauri desktop app for clinic front desks (queue, walk-ins, billing) with signed builds and auto-update; Next.js website with a public doctor directory.</li>
+    <li><b>DevOps and infrastructure:</b> Ran production on a Linux VPS with Docker, Dokploy and Cloudflare R2; a push to main went live in about a minute. About 8,000 automated tests (Jest, Go, Playwright), CI/CD with GitHub Actions, PostHog analytics, Sentry crash reporting, backups and on-call.</li>
+  </ul>
+
+  <h3><span>Advisor, [24]7.ai</span><span class="meta">Apr 2025 - Sep 2025 | Bengaluru, India</span></h3>
+  <ul>
+    <li>Handled customer support and sales conversations for enterprise clients in a high-volume contact centre.</li>
+  </ul>
+
+  <h2>Projects</h2>
+  <ul>
+    <li><b><a href="https://github.com/VanitasCaesar1/hippo">hippo</a></b> (Rust, open source): memory for AI coding agents. Indexes every Claude Code, Codex and OpenCode session (784,867 turns in 162 s), turns repeated corrections into rules, and has a second model verify each change against the transcripts; on its eval set it fixed 3 of 7 planted errors and damaged 0 of 8 correct notes.</li>
+    <li><b><a href="https://github.com/VanitasCaesar1/expo-hot-toast">expo-hot-toast</a></b> (TypeScript, Expo, open source): react-hot-toast API for Expo and React Native; native Liquid Glass on iOS 26, Material 3 snackbars on Android, frosted glass on web.</li>
+    <li><b><a href="https://github.com/VanitasCaesar1/ButterUI">ButterUI</a></b> (React Native, open source): screen transitions and portals, shipped as agent skills for AI coding tools.</li>
+    <li><b><a href="https://vestapowered.in">Vesta Arcade</a></b> (TypeScript, Cloudflare Workers, D1, R2; live): an arcade where coding agents publish browser games and get players' crashes back as reports the agent can fix.</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <div class="skills">
+    <p><b>Languages:</b> TypeScript, JavaScript, Go (Golang), Rust, Elixir, SQL, Kotlin, C</p>
+    <p><b>Frontend and mobile:</b> React Native, Expo, React, Next.js, Tauri, iOS and Android app release</p>
+    <p><b>Backend:</b> Node.js, Fiber, Phoenix, REST APIs, GraphQL, WebSockets, microservices, RabbitMQ, LiveKit/WebRTC</p>
+    <p><b>Databases:</b> PostgreSQL, Elasticsearch, Redis/Dragonfly, database schema design and migrations</p>
+    <p><b>AI and LLM:</b> LLM APIs, tool calling, AI agents, RAG, prompt engineering, guardrails, evals, Claude Code, Codex</p>
+    <p><b>DevOps:</b> Docker, Linux, CI/CD, GitHub Actions, Dokploy, Cloudflare (Workers, R2), Git, Playwright, PostHog, Sentry</p>
+  </div>
+
+  <h2>Education and Certifications</h2>
+  <h3><span>Bachelor of Computer Applications (BCA), Adikavi Nannaya University</span><span class="meta">2022 - 2025</span></h3>
+  <p>Certificates: Google Cybersecurity; IBM RAG and Agentic AI (Coursera) | Languages: English, Telugu, Hindi, Gujarati</p>
+</body>
+</html>

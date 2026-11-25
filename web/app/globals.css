@@ -1,0 +1,167 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── Tokens. The page is dark only. One scale for type, space, radius and motion. ── */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-panel: var(--panel);
+  --color-soft: var(--soft);
+  --color-dim: var(--dim);
+  --color-chip: var(--chip);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-brand: var(--brand-blue);
+  --color-brand-deep: var(--brand-deep);
+  --color-brand-soft: var(--brand-soft);
+
+  --font-sans: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-heading: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument), Georgia, serif;
+  --font-hand: var(--font-caveat), cursive;
+  --font-pixel: var(--font-pixel-square), var(--font-geist-mono), monospace;
+
+  /* type: 12 meta · 14 small · 15 body · 20 heading · 40 display */
+  --text-meta: 12px;
+  --text-meta--line-height: 1.5;
+  --text-small: 14px;
+  --text-small--line-height: 1.6;
+  --text-body: 15px;
+  --text-body--line-height: 1.7;
+  --text-heading: 20px;
+  --text-heading--line-height: 1.25;
+  --text-display: 40px;
+  --text-display--line-height: 1.05;
+
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-fade: cubic-bezier(0, 0, 0.58, 1);
+}
+
+:root {
+  color-scheme: dark;
+  --background: #09090b;
+  --foreground: #ececf1;
+  --panel: #0b0b0e;
+  --card: #111116;
+  --card-foreground: #ececf1;
+  --popover: #18181f;
+  --popover-foreground: #ececf1;
+  --primary: #c3cbff;
+  --primary-foreground: #141a4a;
+  --secondary: #16161d;
+  --secondary-foreground: #ececf1;
+  --muted: #16161d;
+  --muted-foreground: #85858f;
+  --accent: #16161d;
+  --accent-foreground: #ececf1;
+  --destructive: #ff6b6b;
+  --border: rgb(255 255 255 / 0.08);
+  --input: rgb(255 255 255 / 0.12);
+  --ring: #8d9cff;
+  --soft: #b4b4bf;
+  --dim: #55555f;
+  --chip: #111116;
+  --line: rgb(255 255 255 / 0.07);
+  --line-strong: rgb(255 255 255 / 0.11);
+  --brand-blue: #8d9cff;
+  --brand-deep: #2b3794;
+  --brand-soft: #c3cbff;
+  /* motion, soft tone: fast 140 · base 240 · slow 340; leaving takes about 70% */
+  --dur-fast: 140ms;
+  --dur-base: 240ms;
+  --dur-slow: 340ms;
+}
+
+@layer base {
+  * { @apply border-border outline-ring/60; }
+  html { @apply font-sans; scroll-behavior: smooth; scroll-padding-top: 24px; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { @apply bg-background text-foreground antialiased; font-size: var(--text-body); text-rendering: optimizeLegibility; }
+  ::selection { background: var(--brand-deep); color: #fff; }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; border-radius: 6px; }
+  p, li { text-wrap: pretty; }
+  h1, h2, h3 { text-wrap: balance; }
+}
+
+/* ── Pieces Tailwind can't say well ── */
+
+/* Solid lead, then dashes, then dots: the section rule */
+.rule {
+  height: 2px; border: 0;
+  background-image:
+    linear-gradient(90deg, var(--brand-blue) 0 7%, transparent 7%),
+    repeating-linear-gradient(90deg, rgb(170 180 255 / 0.7) 0 2px, transparent 2px 6px);
+  mask-image: linear-gradient(90deg, #000 0 40%, rgb(0 0 0 / 0.45) 100%);
+}
+.rule-dots {
+  height: 2px;
+  background-image: repeating-linear-gradient(90deg, rgb(170 180 255 / 0.38) 0 2px, transparent 2px 6px);
+  mask-image: linear-gradient(90deg, #000, rgb(0 0 0 / 0.45));
+}
+
+/* The column's glowing dotted edges */
+.column-edges::before, .column-edges::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 2px; z-index: 3; pointer-events: none;
+  background: repeating-linear-gradient(180deg, rgb(150 165 255 / 0.85) 0 2px, transparent 2px 4px);
+  box-shadow: 0 0 14px 2px rgb(98 115 234 / 0.35), 0 0 60px 12px rgb(98 115 234 / 0.08);
+}
+.column-edges::before { left: -1px; }
+.column-edges::after { right: -1px; }
+
+/* Icons from Simple Icons, tinted with currentColor */
+.si {
+  display: block; flex: none; background-color: currentColor;
+  -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat;
+}
+
+/* A faint light that follows the pointer across a surface (--mx/--my set by Spotlight) */
+.spot { position: relative; isolation: isolate; }
+.spot::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgb(141 156 255 / 0.08), transparent 70%);
+  opacity: 0; transition: opacity calc(var(--dur-base) * 0.7) var(--ease-in);
+}
+@media (hover: hover) and (pointer: fine) {
+  .spot:hover::after { opacity: 1; transition: opacity var(--dur-base) var(--ease-fade); }
+}
+
+/* Dotted underline that turns solid on hover */
+.link-dotted {
+  text-decoration: underline dotted var(--muted-foreground);
+  text-decoration-thickness: 1px; text-underline-offset: 4px;
+  transition: color var(--dur-fast) var(--ease-out), text-decoration-color var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .link-dotted:hover { text-decoration-style: solid; text-decoration-color: currentColor; color: var(--foreground); }
+}
+
+.pixelated { image-rendering: pixelated; }
+.scrollbar-none { scrollbar-width: none; }
+.scrollbar-none::-webkit-scrollbar { display: none; }

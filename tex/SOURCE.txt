@@ -1,0 +1,1 @@
+clouds.jpg and ocean.jpg: NASA Blue Marble (public domain), via the three.js examples textures (earth_clouds_1024.png, earth_specular_2048.jpg).
