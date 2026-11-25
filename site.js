@@ -37,7 +37,7 @@
   const CELL = 3, DOT = 2;
 
   function makeSurface(canvas) {
-    const s = { canvas, ctx: canvas.getContext("2d"), w: 0, h: 0, img: null, buf: null, scale: 1 };
+    const s = { canvas, ctx: canvas.getContext("2d"), w: 0, h: 0, img: null, buf: null, base: null, vals: null, scale: 1 };
     s.resize = () => {
       const r = canvas.getBoundingClientRect();
       const k = dpr();
@@ -48,34 +48,74 @@
       canvas.height = Math.round(s.h * k);
       s.img = s.ctx.createImageData(canvas.width, canvas.height);
       s.buf = new Uint32Array(s.img.data.buffer);
+      s.cellPx = Math.max(2, Math.round(CELL * k));
+      s.dotPx = Math.max(1, Math.round(DOT * k));
+      s.cols = Math.ceil(canvas.width / s.cellPx);
+      s.rows = Math.ceil(canvas.height / s.cellPx);
+      s.vals = null; s.base = null;
     };
-    // field(x, y, t) returns 0..1 in CSS pixels; drawn as dithered dots on a CELL grid.
-    s.paint = (field, t) => {
-      const { buf, img } = s;
-      if (!buf) return;
-      buf.fill(0);
-      const W = img.width, H = img.height, k = s.scale;
-      const cellPx = Math.max(2, Math.round(CELL * k)), dotPx = Math.max(1, Math.round(DOT * k));
-      const cols = Math.ceil(W / cellPx), rows = Math.ceil(H / cellPx);
-      for (let j = 0; j < rows; j++) {
+    // One dithered dot for cell (i, j) at value v (0..1); clears the dot first.
+    const put = (i, j, v) => {
+      const { buf, img, cellPx, dotPx } = s;
+      const W = img.width, H = img.height;
+      const x0 = i * cellPx, y0 = j * cellPx;
+      const x1 = Math.min(W, x0 + dotPx), y1 = Math.min(H, y0 + dotPx);
+      let col = 0;
+      if (v > 0.001) {
+        const q = clamp(v) * LEVELS;
+        let lvl = Math.floor(q);
+        if (q - lvl > BAYER[(j & 3) * 4 + (i & 3)]) lvl++;
+        if (lvl > 0) col = PAL[Math.min(lvl, LEVELS)];
+      }
+      for (let yy = y0; yy < y1; yy++) {
+        const row = yy * W;
+        for (let xx = x0; xx < x1; xx++) buf[row + xx] = col;
+      }
+    };
+    // Full paint. field(x, y, t) returns 0..1 in CSS pixels. reveal < 1 shows only part of the dots (first load).
+    s.paint = (field, t, reveal = 1) => {
+      if (!s.buf) return;
+      s.buf.fill(0);
+      for (let j = 0; j < s.rows; j++) {
         const y = (j + 0.5) * CELL;
-        for (let i = 0; i < cols; i++) {
+        for (let i = 0; i < s.cols; i++) {
+          if (reveal < 1 && hash(i + 17, j + 31) > reveal) continue;
           const v = field((i + 0.5) * CELL, y, t);
-          if (v <= 0.001) continue;
-          const q = clamp(v) * LEVELS;
-          let lvl = Math.floor(q);
-          if (q - lvl > BAYER[(j & 3) * 4 + (i & 3)]) lvl++;
-          if (lvl <= 0) continue;
-          const col = PAL[Math.min(lvl, LEVELS)];
-          const x0 = i * cellPx, y0 = j * cellPx;
-          const x1 = Math.min(W, x0 + dotPx), y1 = Math.min(H, y0 + dotPx);
-          for (let yy = y0; yy < y1; yy++) {
-            const row = yy * W;
-            for (let xx = x0; xx < x1; xx++) buf[row + xx] = col;
-          }
+          if (v > 0.001) put(i, j, v);
         }
       }
-      s.ctx.putImageData(img, 0, 0);
+      s.ctx.putImageData(s.img, 0, 0);
+    };
+    // The still picture: computed once with no pointer, then reused.
+    s.cache = (field) => {
+      const P = s.pt, k = P.k;
+      P.k = 0;
+      s.vals = new Float32Array(s.cols * s.rows);
+      for (let j = 0; j < s.rows; j++) for (let i = 0; i < s.cols; i++) s.vals[j * s.cols + i] = field((i + 0.5) * CELL, (j + 0.5) * CELL, 0);
+      P.k = k;
+    };
+    s.paintCached = (reveal = 1) => {
+      if (!s.buf || !s.vals) return;
+      s.buf.fill(0);
+      for (let j = 0; j < s.rows; j++) for (let i = 0; i < s.cols; i++) {
+        const v = s.vals[j * s.cols + i];
+        if (v <= 0.001 || (reveal < 1 && hash(i + 17, j + 31) > reveal)) continue;
+        put(i, j, v);
+      }
+      s.ctx.putImageData(s.img, 0, 0);
+      if (reveal >= 1) s.base = s.buf.slice();
+    };
+    // Repaint only the cells around the pointer over the still picture.
+    s.paintAround = (field, half) => {
+      if (!s.base) return;
+      s.buf.set(s.base);
+      const P = s.pt;
+      if (P.k > 0.01) {
+        const i0 = Math.max(0, Math.floor((P.x - half) / CELL)), i1 = Math.min(s.cols, Math.ceil((P.x + half) / CELL));
+        const j0 = Math.max(0, Math.floor((P.y - half) / CELL)), j1 = Math.min(s.rows, Math.ceil((P.y + half) / CELL));
+        for (let j = j0; j < j1; j++) for (let i = i0; i < i1; i++) put(i, j, field((i + 0.5) * CELL, (j + 0.5) * CELL, 0));
+      }
+      s.ctx.putImageData(s.img, 0, 0);
     };
     return s;
   }
@@ -100,7 +140,8 @@
         const open = sstep(0.35, 1.5, dx * dx + dy * dy);
         const ragged = (noise(x * 0.05, 7.3) - 0.5) * 36;
         const bottom = 1 - sstep(h * 0.66, h * 0.98, y + ragged);
-        return ((n - 0.4) * 2.6 * (0.25 + 0.75 * open) + b * (n * 0.9 - 0.05)) * bottom;
+        const v = ((n - 0.42) * 2.1 * (0.22 + 0.78 * open) + b * (n * 0.8 - 0.05)) * bottom;
+        return v + 0.07 * bottom; // a faint floor of dots, so the dark areas have depth
       };
     },
     eclipse(s) {
@@ -185,11 +226,13 @@
   };
 
   /* ---------- Run the canvases ---------- */
+  // Still at rest. On first sight the dots develop in; then only the area under the pointer is redrawn.
+  const REACH = { clouds: 280, eclipse: 320, tide: 220, horizon: 260 };
   const jobs = [];
   document.querySelectorAll("canvas[data-art], canvas.globe").forEach((canvas) => {
     const s = makeSurface(canvas);
     const art = canvas.classList.contains("globe") ? "globe" : canvas.dataset.art;
-    const job = { s, art, field: null, visible: false, last: 0, tx: 0, ty: 0, inside: false };
+    const job = { s, art, field: null, visible: false, last: 0, tx: 0, ty: 0, inside: false, reveal: reduce ? 1 : 0, revealStart: 0, live: false };
     s.pt = { x: 0, y: 0, k: 0 };
     s.resize();
     job.field = ARTS[art](s);
@@ -197,9 +240,28 @@
   });
 
   const t0 = performance.now();
-  const drawJob = (job, now) => {
-    if (!job.field) job.field = ARTS[job.art](job.s);
-    job.s.paint(job.field, reduce ? 0 : (now - t0) / 1000);
+  const REVEAL_MS = 1100;
+  const step = (job, now) => {
+    const s = job.s;
+    if (job.art === "globe") {
+      if (job.reveal < 1) job.reveal = job.revealStart ? 1 - Math.pow(1 - Math.min(1, (now - job.revealStart) / REVEAL_MS), 3) : 0;
+      s.paint(job.field, reduce ? 0 : (now - t0) / 1000, job.reveal);
+      job.last = now;
+      return;
+    }
+    if (!s.vals) s.cache(job.field);
+    if (job.reveal < 1) {
+      job.reveal = 1 - Math.pow(1 - Math.min(1, (now - job.revealStart) / REVEAL_MS), 3);
+      s.paintCached(job.reveal);
+    } else if (!s.base) {
+      s.paintCached(1);
+    } else if (s.pt.k > 0.01) {
+      s.paintAround(job.field, REACH[job.art] || 260);
+      job.live = true;
+    } else if (job.live) {
+      s.paintAround(job.field, 0); // back to the still picture
+      job.live = false;
+    }
     job.last = now;
   };
 
@@ -208,9 +270,9 @@
       const job = jobs.find((j) => j.s.canvas === e.target);
       if (!job) continue;
       job.visible = e.isIntersecting;
-      if (job.visible) drawJob(job, performance.now());
+      if (job.visible && !job.revealStart) job.revealStart = performance.now();
     }
-  }, { rootMargin: "100px" });
+  }, { rootMargin: "0px" });
   jobs.forEach((j) => io.observe(j.s.canvas));
 
   let prev = performance.now();
@@ -218,7 +280,7 @@
     const dt = Math.min(0.1, (now - prev) / 1000);
     prev = now;
     if (!reduce && !G.dragging) {
-      G.lon += (G.v - 4) * dt;
+      G.lon += (G.v - 3) * dt;
       G.v *= Math.exp(-dt * 1.6);
     }
     G.sp = Math.sin(G.lat * RAD); G.cp = Math.cos(G.lat * RAD);
@@ -226,13 +288,16 @@
       for (const job of jobs) {
         if (!job.visible) continue;
         const P = job.s.pt;
-        const a = 1 - Math.exp(-dt * 14);
+        const a = 1 - Math.exp(-dt * 18);
         P.x += (job.tx - P.x) * a; P.y += (job.ty - P.y) * a;
-        P.k += ((job.inside ? 1 : 0) - P.k) * (1 - Math.exp(-dt * 6));
-        const busy = P.k > 0.01 || (job.art === "globe" && (G.dragging || Math.abs(G.v) > 0.5));
-        const frame = busy ? 1000 / 40 : 1000 / 15;
-        if (reduce && !busy && job.last) continue;
-        if (now - job.last >= frame) drawJob(job, now);
+        P.k += ((job.inside ? 1 : 0) - P.k) * (1 - Math.exp(-dt * (job.inside ? 8 : 4)));
+        if (job.art === "globe") {
+          const fast = G.dragging || Math.abs(G.v) > 0.5 || job.reveal < 1;
+          if (reduce && !fast && job.last) continue;
+          if (now - job.last >= (fast ? 0 : 1000 / 30)) step(job, now);
+        } else if (job.reveal < 1 || !job.s.base || P.k > 0.01 || job.live) {
+          step(job, now);
+        }
       }
     }
     requestAnimationFrame(loop);
@@ -306,7 +371,7 @@
   const ro = new ResizeObserver(() => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      jobs.forEach((j) => { j.s.resize(); j.field = ARTS[j.art](j.s); drawJob(j, performance.now()); });
+      jobs.forEach((j) => { j.s.resize(); j.field = ARTS[j.art](j.s); if (j.visible) step(j, performance.now()); });
       drawGraph();
     }, 80);
   });
@@ -332,12 +397,11 @@
     const weeks = Math.ceil(counts.length / 7);
     const top = 20;
     const pitch = Math.min(r.width / weeks, (r.height - top) / 7);
-    const size = Math.max(4, Math.floor(pitch - 3));
+    const size = Math.max(4, Math.floor(pitch - 4));
 
-    const nz = counts.filter((c) => c > 0).sort((a, b) => a - b);
-    const q = (p) => nz[Math.min(nz.length - 1, Math.floor(p * nz.length))] || 1;
-    const t1 = q(0.25), t2 = q(0.5), t3 = q(0.8);
-    const level = (c) => (c <= 0 ? 0 : c <= t1 ? 1 : c <= t2 ? 2 : c <= t3 ? 3 : 4);
+    // Log scale against the busiest day, so a few huge days don't flatten the rest.
+    const max = Math.max(1, ...counts);
+    const level = (c) => (c <= 0 ? 0 : Math.max(1, Math.min(4, Math.ceil((4 * Math.log(1 + c)) / Math.log(1 + max)))));
 
     ctx.font = "10px 'Geist Mono', ui-monospace, monospace";
     ctx.fillStyle = "#85858f";
@@ -353,26 +417,28 @@
       }
     }
 
-    const dim = "#1a1a21", mid = "#8d9cff", hi = "#b9c2ff";
+    const dim = "#17171d", mid = "#7f8ef5", hi = "#b4beff";
     counts.forEach((c, n) => {
       const wk = Math.floor(n / 7), day = n % 7;
       const x = Math.round(wk * pitch), y = Math.round(top + day * pitch);
       const lv = level(c);
-      if (lv === 0) { ctx.fillStyle = dim; ctx.fillRect(x, y, size, size); return; }
-      if (lv === 1) {
+      ctx.fillStyle = dim; ctx.fillRect(x, y, size, size);
+      if (lv === 0) return;
+      const cx = x + size / 2, cy = y + size / 2;
+      if (lv === 1) { ctx.fillStyle = mid; ctx.fillRect(Math.round(cx - 1), Math.round(cy - 1), 2, 2); return; }
+      if (lv === 2) {
         ctx.fillStyle = mid;
-        const u = Math.max(2, Math.floor(size / 4));
+        const u = Math.max(2, Math.round(size / 4));
         ctx.fillRect(x + u - 1, y + u - 1, 2, 2); ctx.fillRect(x + size - u - 1, y + size - u - 1, 2, 2);
         ctx.fillRect(x + size - u - 1, y + u - 1, 2, 2); ctx.fillRect(x + u - 1, y + size - u - 1, 2, 2);
         return;
       }
-      if (lv === 2) {
+      if (lv === 3) {
         ctx.fillStyle = mid;
-        for (let yy = 0; yy < size; yy += 2) for (let xx = (yy / 2) % 2 ? 2 : 0; xx < size; xx += 4) ctx.fillRect(x + xx, y + yy, 2, 2);
+        for (let yy = 0; yy + 2 <= size; yy += 2) for (let xx = (yy / 2) % 2 ? 2 : 0; xx + 2 <= size; xx += 4) ctx.fillRect(x + xx, y + yy, 2, 2);
         return;
       }
-      if (lv === 3) { ctx.strokeStyle = hi; ctx.lineWidth = 2; ctx.strokeRect(x + 1, y + 1, size - 2, size - 2); return; }
-      ctx.fillStyle = hi; ctx.fillRect(x, y, size, size);
+      ctx.fillStyle = hi; ctx.fillRect(x + 1, y + 1, size - 2, size - 2);
     });
 
     const wrap = graph.parentElement;
@@ -619,7 +685,7 @@
   if (fx && fine && !reduce) {
     const ctx2 = fx.getContext("2d");
     const pts = [];           // trail: { x, y, life }
-    let mx = -999, my = -999, halo = 0, haloTarget = 0, idle = 0, running = false, last = 0, k = 1;
+    let mx = -999, my = -999, halo = 0, haloTarget = 0, idle = 0, over = false, running = false, last = 0, k = 1;
     let box = null;           // last drawn area in device pixels
     const size = () => {
       k = dpr();
@@ -630,12 +696,12 @@
     size();
     window.addEventListener("resize", size);
 
-    const HALO_R = 46, TRAIL_R = 16;
+    const HALO_R = 40, TRAIL_R = 11;
     const field = (x, y) => {
       let v = 0;
       if (halo > 0.01) {
         const dx = x - mx, dy = y - my, d2 = dx * dx + dy * dy;
-        if (d2 < 9 * HALO_R * HALO_R) v += 0.42 * halo * Math.exp(-d2 / (HALO_R * HALO_R));
+        if (d2 < 9 * HALO_R * HALO_R) v += 0.3 * halo * Math.exp(-d2 / (HALO_R * HALO_R));
       }
       for (let i = 0; i < pts.length; i++) {
         const p = pts[i];
@@ -643,16 +709,16 @@
         const dx = x - p.x, dy = y - p.y, d2 = dx * dx + dy * dy;
         if (d2 < 9 * r * r) v += 0.5 * p.life * Math.exp(-d2 / (r * r));
       }
-      return 0.66 * (1 - Math.exp(-1.8 * v)); // overlapping trail saturates at bright blue, never white
+      return 0.5 * (1 - Math.exp(-2 * v)); // overlapping trail saturates at bright blue, never white
     };
 
     const frame = (now) => {
       const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
       last = now;
       idle += dt;
-      haloTarget = idle < 1.4 ? 1 : 0;
+      haloTarget = idle < 1.4 ? (over ? 0.25 : 1) : 0;
       halo += (haloTarget - halo) * (1 - Math.exp(-dt * (haloTarget ? 10 : 3)));
-      for (const p of pts) p.life -= dt * 2.4;
+      for (const p of pts) p.life -= dt * 3.2;
       while (pts.length && pts[0].life <= 0) pts.shift();
 
       // Area to repaint: everything alive now, plus what was drawn last frame.
@@ -700,6 +766,8 @@
         while (pts.length > 40) pts.shift();
       }
       mx = x; my = y; idle = 0;
+      // Over something you can click, the halo steps back and lets the control answer.
+      over = !!(e.target.closest && e.target.closest("a, button, summary, .chips li, .tech, canvas.globe"));
       wake();
     }, { passive: true });
     document.documentElement.addEventListener("pointerleave", () => { idle = 99; wake(); });

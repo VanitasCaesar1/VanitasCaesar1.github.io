@@ -127,10 +127,10 @@ svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width:
 .quick { display: flex; flex-direction: column; gap: 8px; font-size: 13px; }
 .quick a, .quick button {
   display: inline-flex; align-items: center; gap: 6px; color: var(--soft);
-  text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 4px;
+  text-decoration: underline dotted var(--dim); text-underline-offset: 4px;
   transition: color var(--t-fast), text-decoration-color var(--t-fast);
 }
-.quick a:hover, .quick button:hover { color: var(--text); text-decoration-color: var(--accent); }
+.quick a:hover, .quick button:hover { color: var(--text); text-decoration-style: solid; text-decoration-color: var(--text); }
 .quick svg { width: 12px; height: 12px; color: var(--muted); }
 
 /* Handwritten margin notes */
@@ -188,7 +188,8 @@ h1 .last { font-family: "Geist Pixel", var(--mono); font-weight: 400; letter-spa
   transition: color var(--t-fast), border-color var(--t-fast);
 }
 .icon-btn:hover { color: var(--text); border-color: rgba(141,156,255,0.5); }
-.icon-btn img { width: 15px; height: 15px; filter: invert(0.75); }
+.icon-btn .si { width: 15px; height: 15px; }
+.icon-btn.sm .si { width: 14px; height: 14px; }
 .icon-btn.sm { width: 28px; height: 28px; border-radius: 8px; background: transparent; border-color: transparent; }
 .icon-btn.sm svg { width: 14px; height: 14px; }
 .hero-resume { position: absolute; right: 16px; bottom: 16px; z-index: 1; }
@@ -227,7 +228,7 @@ h1 .last { font-family: "Geist Pixel", var(--mono); font-weight: 400; letter-spa
   border: 1.5px dotted rgba(170, 180, 255, 0.7); background: #0e0e13;
   box-shadow: 0 0 14px rgba(98, 115, 234, 0.18);
 }
-.ico img { width: 17px; height: 17px; filter: invert(0.85); }
+.ico .si { width: 17px; height: 17px; color: #d9dbe8; }
 .ico svg { width: 18px; height: 18px; color: #d9dbe8; }
 .go { margin-left: auto; width: 13px; height: 13px; color: var(--dim); transition: color var(--t-fast), transform var(--t-med) var(--ease-out); }
 .links a:hover .go { color: var(--text); transform: translate(2px, -2px); }
@@ -238,15 +239,16 @@ h1 .last { font-family: "Geist Pixel", var(--mono); font-weight: 400; letter-spa
 .graph-wrap::-webkit-scrollbar { display: none; }
 .graph { width: 100%; min-width: 640px; height: 132px; }
 .graph-foot { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 10px; font-size: 13.5px; color: var(--muted); }
-.graph-foot a { color: var(--text); text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 3px; }
+.graph-foot a { color: var(--text); text-decoration: underline dotted var(--muted); text-underline-offset: 3px; }
+.graph-foot a:hover { text-decoration-style: solid; }
 .contrib-total { font-variant-numeric: tabular-nums; }
 .legend { display: flex; align-items: center; gap: 6px; font: 11px var(--mono); color: var(--dim); }
 .legend i { width: 11px; height: 11px; display: inline-block; }
-.legend .l0 { background: #1a1a21; }
-.legend .l1 { background: radial-gradient(circle, #8d9cff 1px, transparent 1.3px) 0 0 / 5px 5px; }
-.legend .l2 { background: repeating-conic-gradient(#8d9cff 0 25%, transparent 0 50%) 0 0 / 4px 4px; }
-.legend .l3 { box-shadow: inset 0 0 0 2px #b3bdff; }
-.legend .l4 { background: #b3bdff; }
+.legend i { background-color: #17171d; }
+.legend .l1 { background-image: radial-gradient(circle, #7f8ef5 1px, transparent 1.2px); background-size: 11px 11px; background-position: center; }
+.legend .l2 { background-image: radial-gradient(circle, #7f8ef5 1px, transparent 1.2px); background-size: 5.5px 5.5px; }
+.legend .l3 { background-image: repeating-conic-gradient(#7f8ef5 0 25%, transparent 0 50%); background-size: 4px 4px; }
+.legend .l4 { box-shadow: inset 0 0 0 1px #17171d; background-color: #b4beff; }
 
 /* Rows: experience and projects */
 .rows { display: flex; flex-direction: column; }
@@ -262,14 +264,40 @@ h1 .last { font-family: "Geist Pixel", var(--mono); font-weight: 400; letter-spa
 .row-main { flex: 1; min-width: 0; }
 .row h3 { font: 500 15.5px/1.4 var(--sans); }
 .row h3 .at { color: var(--muted); font-weight: 400; }
-.row h3 a { text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 4px; }
-.row h3 a:hover { text-decoration-color: var(--accent); }
+.row h3 a { text-decoration: underline dotted var(--muted); text-underline-offset: 4px; transition: text-decoration-color var(--t-fast); }
+.row h3 a:hover { text-decoration-style: solid; text-decoration-color: var(--text); }
 .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 3px; font-size: 13px; color: var(--muted); }
 .meta i { width: 1px; height: 11px; background: var(--line-2); }
 .desc { margin-top: 6px; max-width: 560px; font-size: 14px; color: var(--muted); line-height: 1.6; }
 .stack { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
-.stack img { width: 14px; height: 14px; filter: invert(0.55); transition: filter var(--t-fast); }
-.stack img:hover { filter: invert(0.95); }
+/* Tech icons: grey at rest, their own colour on hover, with a tooltip */
+.si {
+  display: block; width: 14px; height: 14px; flex: none; background-color: currentColor;
+  -webkit-mask: var(--i) center / contain no-repeat; mask: var(--i) center / contain no-repeat;
+}
+.stack { gap: 2px; margin-left: -6px; margin-top: 8px; }
+.tech {
+  position: relative; display: grid; place-items: center; width: 26px; height: 26px; border-radius: 7px;
+  color: #6c6c78; outline: none;
+  transition: color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out);
+}
+.tech .si { transition: scale var(--feel-release-time, 500ms) var(--feel-release, ease-out); }
+.tech:hover, .tech:focus-visible { color: var(--brand, var(--text)); background-color: rgba(255, 255, 255, 0.06); }
+.tech:hover .si, .tech:focus-visible .si { scale: 1.15; }
+.icon-btn.sm { position: relative; }
+[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute; left: 50%; bottom: calc(100% + 6px); z-index: 10;
+  padding: 4px 8px; border-radius: 7px; white-space: nowrap;
+  font: 500 11.5px/1.3 var(--sans); color: var(--text); letter-spacing: 0;
+  background: #1b1b24; border: 1px solid var(--line-2); box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+  pointer-events: none; opacity: 0; translate: -50% 3px; scale: 0.96; transform-origin: 50% 100%;
+  transition: opacity calc(var(--t-med) * 0.5) var(--feel-in, ease-in), translate calc(var(--t-med) * 0.5) var(--feel-in, ease-in), scale calc(var(--t-med) * 0.5) var(--feel-in, ease-in);
+}
+[data-tip]:hover::before, [data-tip]:focus-visible::before {
+  opacity: 1; translate: -50% 0; scale: 1;
+  transition: opacity var(--t-fast) var(--feel-fade, ease-out) 90ms, translate var(--t-fast) var(--ease-out) 90ms, scale var(--t-fast) var(--ease-out) 90ms;
+}
 .row-acts { display: flex; align-items: center; gap: 2px; }
 .chev { width: 16px; height: 16px; color: var(--muted); margin: 4px 4px 0 6px; transition: color var(--t-fast), transform var(--t-med) var(--ease-out); }
 .row summary:hover .chev { color: var(--text); }
@@ -331,8 +359,7 @@ code { font: 12.5px var(--mono); padding: 1px 5px; border-radius: 5px; backgroun
   background: var(--chip); border: 1px solid var(--line-2);
   transition: border-color var(--t-fast), color var(--t-fast);
 }
-.chips li:hover { border-color: rgba(141,156,255,0.4); color: var(--text); }
-.chips img { width: 13px; height: 13px; filter: invert(0.7); }
+.chips .si { width: 13px; height: 13px; color: #7c7c88; transition: color var(--t-fast) var(--ease-out); }
 .chips svg { width: 13px; height: 13px; color: var(--muted); }
 
 .skills[data-collapsed] { max-height: 470px; overflow: hidden; }
@@ -354,7 +381,8 @@ code { font: 12.5px var(--mono); padding: 1px 5px; border-radius: 5px; backgroun
 .contact .dither { opacity: 0.9; }
 .contact h2 { position: relative; font: 500 30px/1.25 var(--sans); letter-spacing: -0.02em; }
 .contact h2 a { text-decoration: underline dotted rgba(170,180,255,0.75); text-underline-offset: 7px; text-decoration-thickness: 2px; }
-.contact h2 a:hover { color: var(--accent); }
+.contact h2 a { transition: color var(--t-fast); }
+.contact h2 a:hover { color: #fff; text-decoration-style: solid; }
 .sub { position: relative; margin-top: 10px; color: var(--muted); }
 .cta {
   position: relative; display: inline-flex; align-items: center; gap: 10px;
@@ -369,8 +397,8 @@ code { font: 12.5px var(--mono); padding: 1px 5px; border-radius: 5px; backgroun
 .cta-go svg { width: 14px; height: 14px; stroke-width: 2; }
 .where { position: relative; display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 18px; font-size: 13px; color: var(--muted); }
 .where svg { width: 14px; height: 14px; }
-.where .copy { margin-left: 10px; text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 4px; }
-.where .copy:hover { color: var(--text); text-decoration-color: var(--accent); }
+.where .copy { margin-left: 10px; text-decoration: underline dotted var(--dim); text-underline-offset: 4px; }
+.where .copy:hover { color: var(--text); text-decoration-style: solid; text-decoration-color: var(--text); }
 
 /* Footer */
 .foot { position: relative; padding: 56px var(--pad) 0; text-align: center; overflow: hidden; }
@@ -378,8 +406,8 @@ blockquote p { font: italic 400 34px/1.15 "Instrument Serif", Georgia, serif; co
 blockquote cite { display: block; margin-top: 14px; font: 500 10.5px var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); font-style: normal; }
 .small { font-size: 12px; color: var(--muted); }
 .foot .small span { margin: 0 6px; color: var(--dim); }
-.foot .small a { color: var(--soft); text-decoration: underline; text-decoration-color: var(--dim); text-underline-offset: 3px; }
-.foot .small a:hover { color: var(--text); }
+.foot .small a { color: var(--soft); text-decoration: underline dotted var(--dim); text-underline-offset: 3px; }
+.foot .small a:hover { color: var(--text); text-decoration-style: solid; }
 .globe { width: 100%; height: 520px; margin-top: 24px; }
 
 /* Toast: bottom centre, swipe down to dismiss (assets/feel) */
@@ -393,6 +421,17 @@ blockquote cite { display: block; margin-top: 14px; font: 500 10.5px var(--mono)
 }
 .toast svg { width: 14px; height: 14px; color: var(--accent); }
 .toast[data-feel-state="closed"] { pointer-events: none; }
+
+/* ---------- First load: the hero settles in once ---------- */
+@keyframes settle { from { opacity: 0; translate: 0 10px; filter: blur(4px); } }
+@keyframes fade-in { from { opacity: 0; } }
+.hero-id .avatar { animation: settle 900ms var(--ease-out) both; }
+.hero-id h1 { animation: settle 900ms var(--ease-out) 90ms both; }
+.hero-id .role { animation: settle 900ms var(--ease-out) 180ms both; }
+.rail-inner, .hero-resume { animation: fade-in 900ms var(--feel-fade, ease-out) 300ms both; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-id .avatar, .hero-id h1, .hero-id .role { animation-name: fade-in; }
+}
 
 /* ---------- Hover and pointer layer ---------- */
 .copy-ico { position: relative; display: inline-grid; width: 12px; height: 12px; }
@@ -420,15 +459,11 @@ blockquote cite { display: block; margin-top: 14px; font: 500 10.5px var(--mono)
 .peek { display: none; }
 
 @media (hover: hover) and (pointer: fine) {
-  /* A dotted light that follows the pointer across a surface */
+  /* A faint light that follows the pointer across a surface */
   .spot { position: relative; isolation: isolate; }
   .spot::after {
     content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
-    background:
-      radial-gradient(circle, rgba(170, 182, 255, 0.42) 0.9px, transparent 1.4px) 0 0 / 4px 4px,
-      radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(98, 115, 234, 0.10), transparent 70%);
-    -webkit-mask-image: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), #000 0%, rgba(0,0,0,0.25) 45%, transparent 72%);
-    mask-image: radial-gradient(200px circle at var(--mx, 50%) var(--my, 50%), #000 0%, rgba(0,0,0,0.25) 45%, transparent 72%);
+    background: radial-gradient(320px circle at var(--mx, 50%) var(--my, 50%), rgba(141, 156, 255, 0.075), transparent 70%);
     opacity: 0;
     transition: opacity calc(var(--t-med) * 0.7) var(--feel-in, ease-in);
   }
@@ -437,18 +472,23 @@ blockquote cite { display: block; margin-top: 14px; font: 500 10.5px var(--mono)
   /* Links grid: the icon tile lights up */
   .links a .ico { transition: border-color var(--t-fast) var(--ease-out), box-shadow var(--t-med) var(--ease-out), background-color var(--t-fast); }
   .links a:hover .ico { border-color: rgba(190, 200, 255, 0.95); background-color: #12131c; box-shadow: 0 0 0 3px rgba(98, 115, 234, 0.16), 0 0 26px rgba(98, 115, 234, 0.45); }
-  .links a:hover .ico img { filter: invert(1); }
+  .links a:hover .ico .si { color: #fff; }
 
   /* Rows */
   .row summary h3 { transition: color var(--t-fast) var(--ease-out); }
-  .row summary .stack img { transition: filter var(--t-fast) var(--ease-out); }
-  .row summary:hover .stack img { filter: invert(0.8); }
+  .row summary:hover .tech { color: #8c8c98; }
+  .row summary:hover .tech:hover { color: var(--brand, var(--text)); }
   .row summary:hover .desc { color: var(--soft); }
   .desc { transition: color var(--t-fast) var(--ease-out); }
 
-  .chips li img { transition: filter var(--t-fast) var(--ease-out); }
-  .chips li:hover img { filter: invert(1); }
-  .chips li:hover { background-color: #15161f; }
+  .chips li { transition: translate var(--feel-release-time, 500ms) var(--feel-release, ease-out), border-color var(--t-fast) var(--ease-out), background-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out); }
+  .chips li:hover {
+    translate: 0 -2px; color: var(--text);
+    border-color: color-mix(in srgb, var(--brand, var(--accent)) 45%, transparent);
+    background-color: color-mix(in srgb, var(--brand, var(--accent)) 9%, var(--chip));
+    transition-duration: var(--t-fast); transition-timing-function: var(--ease-out);
+  }
+  .chips li:hover .si, .chips li:hover svg { color: var(--brand, var(--accent)); }
 
   .stats li { transition: border-color var(--t-fast) var(--ease-out); }
   .stats li:hover { border-color: rgba(141,156,255,0.35); }
